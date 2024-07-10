@@ -17,7 +17,7 @@ See [`data_doc.md`](./data_doc.md) for an explanation of the data you will downl
 
 
 ## Download HOGraspNet
-Please fill this [form](https://goo.gl/forms/FIsXpYVIUov0j7Wv2) to download the dataset after reading the [terms and conditions](#terms).
+Please fill this [form](https://forms.gle/UqH15zN2PiBGQDUs7) to download the dataset after reading the [terms and conditions](#terms).
 
 Set provided data asset in
 ```
@@ -32,6 +32,9 @@ HOGraspNet/assets/
 ```
 
 Depending on your usage of the dataset, we suggest different download protocols. 
+
+- video sequence will be update soon.
+- HOGraspNet_v1 has lower quality on object pose/contact map quality. Enhanced v2 will be released in a month.
 
 options:
 

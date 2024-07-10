@@ -25,8 +25,23 @@ def download_data(url_file, out_folder, dry_run):
 
 
 def main():
-    ## check if the url is set
-    if os.is
+    ## check if the url is set ##
+    if os.path.isdir("assets/url"):
+        if len(os.listdir("assets/url")) < 1:
+            print(f"Error: no files in assets/url Check README.")
+            sys.exit(0)
+    else:
+        print(f"Error: assets/url not exists. Check README.")
+        sys.exit(0)
+
+    ## parse download options ##
+    """
+    - split : --split s0 (s0~s4)
+    - subject range : --subj 1 or --subj 2-5 or --subj 2,5,7 (default : s1-s99)
+    - object : --obj 1 or --obj 1,2,3
+    - grasp : --grasp 14 or --grasp 14, 27 (error if not exists)
+    - objModel : True(default), False (download 3D models)
+    """
 
     parser = argparse.ArgumentParser(description="Download files from a list of URLs")
     parser.add_argument(
@@ -47,9 +62,7 @@ def main():
         help="Select top 5 URLs if enabled and 'images' is in url_file",
     )
     args = parser.parse_args()
-    if args.dry_run:
-        logger.info("Running in dry-run mode")
-
+    
     # download_data(args.url_file, args.out_folder, args.dry_run)
     url = "http://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip"
     output_path = "HOGraspNet_obj_models.zip"
