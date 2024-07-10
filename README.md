@@ -21,48 +21,12 @@ Please fill this [form](https://goo.gl/forms/FIsXpYVIUov0j7Wv2) to download the 
 
 Depending on your usage of the dataset, we suggest different download protocols. 
 
-Clean download cache:
-```bash
-./bash/clean_downloads.sh
-```
-
+options:
 
 Download cropped images (optional):
 
 ```bash
-./bash/download_cropped_images.sh
-```
-
-Download full-resolution images (optional):
-
-⚠️ If you just want to train and compete with our CVPR models, you only need the cropped images above. The script below download the full-resolution images which can take a while.
-
-```bash
-./bash/download_images.sh
-```
-
-Download pre-processed splits (optional):
-
-```bash
-./bash/download_splits.sh
-```
-
-Download image features used by our CVPR LSTM models (optional):
-
-```bash
-./bash/download_feat.sh
-```
-
-Download our pre-trained CVPR model weights (optional):
-
-```bash
-./bash/download_baselines.sh
-```
-
-Download MoCap related data (optional):
-
-```bash
-./bash/download_mocap.sh
+python scripts/download_HOGraspNet.py --setup p1 --method arctic_sf --trainsplit train --valsplit minival
 ```
 
 After downloading what you need, you can now verify the checksum for corruption, and unzip them all:
