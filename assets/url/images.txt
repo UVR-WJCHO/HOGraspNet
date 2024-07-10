@@ -1,1 +1,0 @@
-http://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip
