@@ -5,6 +5,7 @@ import warnings
 
 from tqdm import tqdm
 import urllib.request
+from utils import check_args
 
 
 class DownloadProgressBar(tqdm):
@@ -43,30 +44,59 @@ def main():
     - objModel : True(default), False (download 3D models)
     """
 
+    ## config ##
+    base_url_path = "./assets/url/"
+    base_url_set = ["images", "annotations", "extra", "images_augmented"]
+    base_obj_models_url = "http://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip"
+
+    
+    ## parse arguments ##
     parser = argparse.ArgumentParser(description="Download files from a list of URLs")
     parser.add_argument(
-        "--url_file",
-        type=str,
-        help="Path to file containing list of URLs",
-        required=True,
+        "--split",
+        choices=split_types,
+        help="Select the split option as 0 to 4. (Total s0 ~ s4) ",
+        required=False,
+        default=0
     )
     parser.add_argument(
-        "--out_folder",
+        "--subject",
         type=str,
-        help="Path to folder to store downloaded files",
-        required=True,
+        help="Select the subject option as 1 or 1,2 or 1-3 or small. (Total S1~S99)",
+        required=False,
+        default="all"
     )
     parser.add_argument(
-        "--dry_run",
-        action="store_true",
-        help="Select top 5 URLs if enabled and 'images' is in url_file",
+        "--object",
+        type=str,
+        help="Select the object option as 1 or 1,2 or 1-3. (Total 1~30)",
+        required=False,
+        default="all"
     )
+    parser.add_argument(
+        "--grasp",
+        type=str,
+        help="Select the grasp class option. (Check taxonomy index in paper)",
+        required=False,
+        default="all"
+    )
+
     args = parser.parse_args()
+
+    ## check options ##
+    subjects, objects, grasps = check_args(args.subject, args.object, args.grasp)
     
-    # download_data(args.url_file, args.out_folder, args.dry_run)
-    url = "http://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip"
-    output_path = "HOGraspNet_obj_models.zip"
-    download_url(url, output_path)
+    for url_type in base_url_set:
+        url_file = os.path.join(base_url_path, url_type+".txt")
+        
+        if os.isfile(url_file):
+            
+        else:
+            print(f"There is no file in {url_file}; please download it through the Google form link.")
+
+    # url = "http://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip"
+    # output_path = "HOGraspNet_obj_models.zip"
+    # download_url(url, output_path)
 
 
 if __name__ == "__main__":

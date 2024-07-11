@@ -66,7 +66,9 @@ The dataset is organized as the f
 Available objects: 'ju
 
 
-
+## TODO ##
+- Visualization code
+- HOGraspNet_v2
 
 
 ## Terms and conditions
