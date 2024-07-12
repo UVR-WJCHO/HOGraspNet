@@ -7,14 +7,14 @@ Supplementary :
 
 ## Overview
 HOGraspNet provides the following data and models:
-- `arctic_data/data/images [649G]`: Full 2K-resolution images
-- `arctic_data/data/cropped_images [116G]`: loosely cropped version of the original images around the object center for fast image loading
-- `arctic_data/data/raw_seqs [215M]`: raw GT sequences in world coordinate (e.g., MANO, SMPLX parameters, egocentric camera trajectory, object poses)
-- `arctic_data/data/splits [18G]`: splits created by aggregating processed sequences together based on the requirement of a specific split.
-- `arctic_data/data/feat [14G]`: validation set image features needed for LSTM models.
-- `arctic_data/data/splits_json [40K]`: json files to define the splits
+- `data/images [649G]`: Full 2K-resolution images
+- `data/cropped_images [116G]`: loosely cropped version of the original images around the object center for fast image loading
+- `data/raw_seqs [215M]`: raw GT sequences in world coordinate (e.g., MANO, SMPLX parameters, egocentric camera trajectory, object poses)
+- `data/splits [18G]`: splits created by aggregating processed sequences together based on the requirement of a specific split.
+- `data/feat [14G]`: validation set image features needed for LSTM models.
+- `data/splits_json [40K]`: json files to define the splits
 - `meta [91M]`: camera parameters, object info, subject info, subject personalized vtemplates, object templates.
-- `arctic_data/model [6G]`: weights of our CVPR baselines, and the same baseline models re-trained after upgrading dependencies.
+- `model [6G]`: weights of our CVPR baselines, and the same baseline models re-trained after upgrading dependencies.
 
 See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download.
 
