@@ -109,8 +109,3 @@ If using this dataset, please cite the following paper:
 본 연구에 활용된 데이터는 AI 허브([aihub.or.kr](http://aihub.or.kr/))에서 다운로드 받으실 수 있습니다.
 This research (paper) used datasets from 'The Open AI Dataset Project (AI-Hub, S. Korea)'.
 All data information can be accessed through 'AI-Hub ([www.aihub.or.kr](http://www.aihub.or.kr/))'.
-
-## References
-<a name="refs"></a>
-
-[1] *Dense Hand-Object(HO) GraspNet with Full Grasping Taxonomy and Dynamics*, Woojin Cho, Jihyun Lee, Minjae Yi, Minje Kim, Taeyun Woo, Donghwan Kim, Taewook Ha, Hyokeun Lee, Je-Hwan Ryu, Woontack Woo and Tae-Kyun Kim, ECCV 2024.)
