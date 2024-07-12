@@ -1,6 +1,8 @@
 # HOGraspNet
 This repository contains instructions on getting the data and code of the work `Dense Hand-Object(HO) GraspNet with Full Grasping Taxonomy and Dynamics` presented at ECCV 2024.
 
+Project page : [HOGraspNet](https://hograspnet2024.github.io/)
+
 ## Overview
 
 HOGraspNet provides the following data and models:
