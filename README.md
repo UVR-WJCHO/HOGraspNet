@@ -33,27 +33,41 @@ HOGraspNet/assets/
 
 Depending on your usage of the dataset, we suggest different download protocols. 
 
-- video sequence will be update soon.
-- HOGraspNet_v1 has lower quality on object pose/contact map quality. Enhanced v2 will be released in a month.
-
 options:
 
-subjects_info : 
+--type : all_small(0): image_crop+annotation+mask, all(1): all_small+image_origin, image_crop(2), annotation(3), mask(4), image_origin(5) (default : 0)
+--subject : all, 1 or 1,2 or 1-3 or small. (default : all)
+--objModel : True, False (default : True)
 
-Download cropped images (optional):
+
+- ...if the full dataset is not downloaded(ex. setting --subject option to "small" or specific subject indexs), only s0 split is available.
+
+(additional) subjects_info : "subject_info.csv"
+
+Download the dataset with default option: 
+- Cropped/Background augmented Images + Annotations + Masks
+- All subject (S1~S99)
+- Scanned object 3D models
 
 ```bash
-python scripts/download_HOGraspNet.py --setup p1 --method arctic_sf --trainsplit train --valsplit minival
+python scripts/download_data.py
 ```
 
-After downloading what you need, you can now verify the checksum for corruption, and unzip them all:
+Download the dataset with maual option (example): 
+- Only Cropped/Background augmented Images
+- Pre-defined 5 subjects
 
 ```bash
-python scripts_data/checksum.py # verify checksums; this could take a while
-python scripts_data/unzip_download.py # unzip downloaded data
+python scripts/download_data.py --type 2 --subject small --objModel False
 ```
 
-The raw downloaded data can be found under `downloads`. The unzipped data and models can be found under `unpack`. See [`processing.md`](processing.md) for explanation of how the files are organized and what they represent.
+Now, unzip them all:
+
+```bash
+python scripts_data/unzip_data.py # unzip downloaded data
+```
+
+The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](visualization.md) for the explanation of how the files can be visualized.
 
 
 
@@ -67,6 +81,10 @@ Available objects: 'ju
 
 
 ## TODO ##
+
+- video sequence will be update soon.
+- HOGraspNet_v1 has lower quality on object pose/contact map quality. Enhanced v2 will be released in a month.
+
 - Visualization code
 - HOGraspNet_v2
 
