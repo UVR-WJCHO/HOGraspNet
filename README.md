@@ -64,7 +64,7 @@ python scripts/download_data.py --type 2 --subject small --objModel False
 Now, unzip them all:
 
 ```bash
-python scripts_data/unzip_data.py # unzip downloaded data
+python scripts/unzip_data.py # unzip downloaded data
 ```
 
 The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](visualization.md) for the explanation of how the files can be visualized.
