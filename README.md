@@ -2,9 +2,10 @@
 This repository contains instructions on getting the data and code of the work `Dense Hand-Object(HO) GraspNet with Full Grasping Taxonomy and Dynamics` presented at ECCV 2024.
 
 Project page : [HOGraspNet](https://hograspnet2024.github.io/)
+Paper : 
+Supplementary : 
 
 ## Overview
-
 HOGraspNet provides the following data and models:
 - `arctic_data/data/images [649G]`: Full 2K-resolution images
 - `arctic_data/data/cropped_images [116G]`: loosely cropped version of the original images around the object center for fast image loading
@@ -70,6 +71,13 @@ python scripts/unzip_data.py # unzip downloaded data
 ```
 
 The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](./docs/visualization.md) for the explanation of how the files can be visualized.
+
+
+## Data visualization
+
+
+## Manual background augmentation
+
 
 
 ## TODO ##
