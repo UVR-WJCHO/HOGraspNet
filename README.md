@@ -3,7 +3,7 @@ This repository contains instructions on getting the data and code of the work `
 
 ## Overview
 
-So far ARCTIC provides the following data and models:
+HOGraspNet provides the following data and models:
 - `arctic_data/data/images [649G]`: Full 2K-resolution images
 - `arctic_data/data/cropped_images [116G]`: loosely cropped version of the original images around the object center for fast image loading
 - `arctic_data/data/raw_seqs [215M]`: raw GT sequences in world coordinate (e.g., MANO, SMPLX parameters, egocentric camera trajectory, object poses)
@@ -13,7 +13,7 @@ So far ARCTIC provides the following data and models:
 - `meta [91M]`: camera parameters, object info, subject info, subject personalized vtemplates, object templates.
 - `arctic_data/model [6G]`: weights of our CVPR baselines, and the same baseline models re-trained after upgrading dependencies.
 
-See [`data_doc.md`](./data_doc.md) for an explanation of the data you will download, how the files are related to each others, and details on each file type.
+See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download.
 
 
 ## Download HOGraspNet
@@ -67,17 +67,7 @@ Now, unzip them all:
 python scripts/unzip_data.py # unzip downloaded data
 ```
 
-The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](visualization.md) for the explanation of how the files can be visualized.
-
-
-
-## Dataset structure:
-
-The dataset is organized as the f
-
-
-## Object models
-Available objects: 'ju
+The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](./docs/visualization.md) for the explanation of how the files can be visualized.
 
 
 ## TODO ##
