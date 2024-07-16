@@ -104,11 +104,13 @@ The raw downloaded data can be found under `data/zipped/`. The unzipped data and
 
 ## TODO ##
 
-- video sequence will be update soon.
-- HOGraspNet_v1 has lower quality on object pose/contact map quality. Enhanced v2 will be released in a month.
+<!-- - [ ] An uncompleted task
+- [x] A completed task -->
 
-- Visualization code
-- HOGraspNet_v2
+- [ ] HALO model annotation. (ETA: 24/07)
+- [ ] Full continuous video sequence. (ETA: 24/08)
+- [ ] HOGraspNet v2. (ETA: 24/08)
+	- object pose/contact map quality will be enhanced.
 
 
 ## Terms and conditions
