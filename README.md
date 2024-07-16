@@ -64,28 +64,28 @@ Please check it if you need data on a specific type of subject.
 
 **Download procedure**
 
-1. Download the dataset with default option: 
-- Cropped/Background augmented Images + Annotations + Masks
-- All subject (S1~S99)
-- Scanned object 3D models
+1. Download the dataset 
+	1. with default option: 
+		- Cropped/Background augmented Images + Annotations + Masks
+		- All subject (S1~S99)
+		- Scanned object 3D models
 
-```bash
-python scripts/download_data.py
-```
+		```bash
+		python scripts/download_data.py
+		```
 
-  1.1 or Download the dataset with maual option (example): 
-- Only Cropped/Background augmented Images
-- Pre-defined 5 subjects
+	2. or with maual option (example): 
+		- Only Cropped/Background augmented Images
+		- Pre-defined 5 subjects
 
-```bash
-python scripts/download_data.py --type 2 --subject small --objModel False
-```
+		```bash
+		python scripts/download_data.py --type 2 --subject small --objModel False
+		```
 
 2. Unzip them all:
-
-```bash
-python scripts/unzip_data.py # unzip downloaded data
-```
+	```bash
+	python scripts/unzip_data.py # unzip downloaded data
+	```
 
 The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](./docs/visualization.md) for the explanation of how the files can be visualized.
 
