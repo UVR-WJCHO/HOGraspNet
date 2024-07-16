@@ -73,7 +73,7 @@ Please check it if you need data on a specific type of subject.
 python scripts/download_data.py
 ```
 
-1.1 or Download the dataset with maual option (example): 
+  1.1 or Download the dataset with maual option (example): 
 - Only Cropped/Background augmented Images
 - Pre-defined 5 subjects
 
