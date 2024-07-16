@@ -110,7 +110,8 @@ The raw downloaded data can be found under `data/zipped/`. The unzipped data and
 - [ ] HALO model annotation (ETA: 24/07)
 - [ ] Full continuous video sequence (ETA: 24/08)
 - [ ] HOGraspNet v2 (ETA: 24/08)
-	- object pose/contact map quality will be enhanced.
+	- Object pose/contact map quality will be enhanced.
+	- Images and annotation for articulated objects will be added.
 
 
 ## Terms and conditions
