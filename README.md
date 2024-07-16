@@ -2,31 +2,27 @@
 This repository contains instructions on getting the data and code of the work `Dense Hand-Object(HO) GraspNet with Full Grasping Taxonomy and Dynamics` presented at ECCV 2024.
 
 Project page : [HOGraspNet](https://hograspnet2024.github.io/)
-Paper : 
-Supplementary : 
+
 
 ## Overview
 HOGraspNet provides the following data and models:
-- `data/images [649G]`: Full 2K-resolution images
-- `data/cropped_images [116G]`: loosely cropped version of the original images around the object center for fast image loading
-- `data/raw_seqs [215M]`: raw GT sequences in world coordinate (e.g., MANO, SMPLX parameters, egocentric camera trajectory, object poses)
-- `data/splits [18G]`: splits created by aggregating processed sequences together based on the requirement of a specific split.
-- `data/feat [14G]`: validation set image features needed for LSTM models.
-- `data/splits_json [40K]`: json files to define the splits
-- `meta [91M]`: camera parameters, object info, subject info, subject personalized vtemplates, object templates.
-- `model [6G]`: weights of our CVPR baselines, and the same baseline models re-trained after upgrading dependencies.
+- `data/Source_data`: Full 1920*1080 size RGB & Depth images ("Source_data/Object Pose" is unnecessary data. It will be removed soon.)
+- `data/Labeling_data`: Json files for annotations.
+- `data/extra_data`: Binary hand & object mask data for cropped image. (Bounding box is provided through the dataloader module.)
+- `data/Source_augmented`: Cropped images around the hand and background augmented RGB images.
+- `data/obj_scanned_models`: Manually scanned 3D models for 30 objects utilized in the dataset.
 
-See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download.
+<!-- See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download. -->
 
 
 ## Download HOGraspNet
+
 Please fill this [form](https://forms.gle/UqH15zN2PiBGQDUs7) to download the dataset after reading the [terms and conditions](#terms).
 
 Set provided data asset in
+<!-- HOGraspNet/assets/checksum.json -->
 ```
-HOGraspNet/assets/checksum.json
-HOGraspNet/assets/
-    urls/
+HOGraspNet/assets/urls/
         images.txt: Full RGB & Depth images
         annotations.txt: annotations
         extra.txt: hand & object segmentation masks(pseudo)
@@ -34,9 +30,10 @@ HOGraspNet/assets/
 
 ```
 
-Depending on your usage of the dataset, we suggest different download protocols. 
+**Options**
 
-options:
+Depending on your usage of the dataset, we suggest different download options. 
+
 
 --type : all_small(0): image_crop+annotation+mask, all(1): all_small+image_origin, image_crop(2), annotation(3), mask(4), image_origin(5) (default : 0)
 --subject : all, 1 or 1,2 or 1-3 or small. (default : all)
@@ -45,7 +42,12 @@ options:
 
 - ...if the full dataset is not downloaded(ex. setting --subject option to "small" or specific subject indexs), only s0 split is available.
 
-(additional) subjects_info : "subject_info.csv"
+
+**Subject info**
+
+Here, we provide a summary of each subject's information included in the dataset.[`HOGraspNet_subject_info`](./assets/HOGraspNet_subject_info.csv)
+
+**Procedure**
 
 Download the dataset with default option: 
 - Cropped/Background augmented Images + Annotations + Masks
