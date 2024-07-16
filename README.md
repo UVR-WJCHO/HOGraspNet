@@ -35,7 +35,7 @@ HOGraspNet/assets/urls/
 Depending on your usage of the dataset, we suggest different download options. 
 
 
-* type(type: int, default: 0): 
+* --type (type: int, default: 0): 
     * 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
     * 1 : Source_augmented + Labeling_data + extra_data + Source_data
     * 2 : Source_augmented
@@ -43,14 +43,14 @@ Depending on your usage of the dataset, we suggest different download options.
     * 4 : extra_data
     * 5 : Source_data
 
-* subject(type: string, default: all): 
+* --subject (type: string, default: all): 
     * all : subject 1~99
     * small : pre-defined 5 subjects
     * 1 : subject 1
     * 1,2 : subject 1 and 2
     * 1-3 : subject 1 to 3
         
-* objModel(type: bool, default : True): 
+* --objModel (type: bool, default : True): 
     * True : Download the scanned object 3D models
     * False : Skip
 
@@ -64,7 +64,7 @@ Please check it if you need data on a specific type of subject.
 
 **Download procedure**
 
-Download the dataset with default option: 
+1. Download the dataset with default option: 
 - Cropped/Background augmented Images + Annotations + Masks
 - All subject (S1~S99)
 - Scanned object 3D models
@@ -73,7 +73,7 @@ Download the dataset with default option:
 python scripts/download_data.py
 ```
 
-Download the dataset with maual option (example): 
+1.1 or Download the dataset with maual option (example): 
 - Only Cropped/Background augmented Images
 - Pre-defined 5 subjects
 
@@ -81,7 +81,7 @@ Download the dataset with maual option (example):
 python scripts/download_data.py --type 2 --subject small --objModel False
 ```
 
-Now, unzip them all:
+2. Unzip them all:
 
 ```bash
 python scripts/unzip_data.py # unzip downloaded data
