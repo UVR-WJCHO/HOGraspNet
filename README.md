@@ -35,19 +35,34 @@ HOGraspNet/assets/urls/
 Depending on your usage of the dataset, we suggest different download options. 
 
 
---type : all_small(0): image_crop+annotation+mask, all(1): all_small+image_origin, image_crop(2), annotation(3), mask(4), image_origin(5) (default : 0)
---subject : all, 1 or 1,2 or 1-3 or small. (default : all)
---objModel : True, False (default : True)
+- type(type: int, default: 0): 
+        - 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
+        - 1 : Source_augmented + Labeling_data + extra_data + Source_data
+        - 2 : Source_augmented
+        - 3 : Labeling_data
+        - 4 : extra_data
+        - 5 : Source_data
 
+- subject(type: string, default: all): 
+        - all : subject 1~99
+        - small : pre-defined 5 subjects
+        - 1 : subject 1
+        - 1,2 : subject 1 and 2
+        - 1-3 : subject 1 to 3
+        
+- objModel(type: bool, default : True): 
+        - True : Download the scanned object 3D models
+        - False : Skip
 
-- ...if the full dataset is not downloaded(ex. setting --subject option to "small" or specific subject indexs), only s0 split is available.
+⚠️ If the full dataset is not downloaded (e.g., setting the subject option to "small" or a specific subject index), only the s0 split is available in the dataloader.
 
 
 **Subject info**
 
-Here, we provide a summary of each subject's information included in the dataset.[`HOGraspNet_subject_info`](./assets/HOGraspNet_subject_info.csv)
+Here, we provide a summary of each subject's information included in the dataset. [`HOGraspNet_subject_info`](./assets/HOGraspNet_subject_info.csv)
+Please check it if you need data on a specific type of subject.
 
-**Procedure**
+**Download procedure**
 
 Download the dataset with default option: 
 - Cropped/Background augmented Images + Annotations + Masks
@@ -75,7 +90,12 @@ python scripts/unzip_data.py # unzip downloaded data
 The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](./docs/visualization.md) for the explanation of how the files can be visualized.
 
 
+## Dataloader
+
+
+
 ## Data visualization
+
 
 
 ## Manual background augmentation
