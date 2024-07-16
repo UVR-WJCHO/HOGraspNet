@@ -111,7 +111,7 @@ The raw downloaded data can be found under `data/zipped/`. The unzipped data and
 - [ ] Full continuous video sequence (ETA: 24/08)
 - [ ] HOGraspNet v2 (ETA: 24/08)
 	- Object pose/contact map quality will be enhanced.
-	- Images and annotation for articulated objects will be added.
+	- Images and annotations for articulated objects will be added.
 
 
 ## Terms and conditions
