@@ -107,9 +107,9 @@ The raw downloaded data can be found under `data/zipped/`. The unzipped data and
 <!-- - [ ] An uncompleted task
 - [x] A completed task -->
 
-- [ ] HALO model annotation. (ETA: 24/07)
-- [ ] Full continuous video sequence. (ETA: 24/08)
-- [ ] HOGraspNet v2. (ETA: 24/08)
+- [ ] HALO model annotation (ETA: 24/07)
+- [ ] Full continuous video sequence (ETA: 24/08)
+- [ ] HOGraspNet v2 (ETA: 24/08)
 	- object pose/contact map quality will be enhanced.
 
 

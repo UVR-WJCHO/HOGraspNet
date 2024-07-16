@@ -1,20 +1,32 @@
 import os
 import os.path as op
 import warnings
-
 from tqdm import tqdm
 import urllib.request
+from config import *
 
 
-## default setting ##
-split_types = list(range(5))
-subject_types = list(range(100))
-object_types = list(range(31))
-del subject_types[0]
-del object_types[0]
-grasp_types = [1,2,17,18,22,30,3,4,5,19,31,10,11,26,28,16,29,23,20,25,9,24,33,7,12,13,27,14]
+def extractBbox(hand_2d, image_rows=1080, image_cols=1920, bbox_w=640, bbox_h=480):
+    # consider fixed size bbox
+    x_min_ = min(hand_2d[:, 0])
+    x_max_ = max(hand_2d[:, 0])
+    y_min_ = min(hand_2d[:, 1])
+    y_max_ = max(hand_2d[:, 1])
 
-base_url_set = ["images_augmented", "annotations", "extra", "images"]
+    x_avg = (x_min_ + x_max_) / 2
+    y_avg = (y_min_ + y_max_) / 2
+
+    x_min = max(0, x_avg - (bbox_w / 2))
+    y_min = max(0, y_avg - (bbox_h / 2))
+
+    if (x_min + bbox_w) > image_cols:
+        x_min = image_cols - bbox_w
+    if (y_min + bbox_h) > image_rows:
+        y_min = image_rows - bbox_h
+
+    bbox = [x_min, y_min, bbox_w, bbox_h]
+    return bbox, [x_min_, x_max_, y_min_, y_max_]
+
 
 def check_args(arg_type, arg_subject):
     try:  
