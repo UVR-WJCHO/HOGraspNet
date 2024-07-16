@@ -34,24 +34,25 @@ HOGraspNet/assets/urls/
 
 Depending on your usage of the dataset, we suggest different download options. 
 
+
 * type(type: int, default: 0): 
-        - 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
-        - 1 : Source_augmented + Labeling_data + extra_data + Source_data
-        - 2 : Source_augmented
-        - 3 : Labeling_data
-        - 4 : extra_data
-        - 5 : Source_data
+    * 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
+    * 1 : Source_augmented + Labeling_data + extra_data + Source_data
+    * 2 : Source_augmented
+    * 3 : Labeling_data
+    * 4 : extra_data
+    * 5 : Source_data
 
 * subject(type: string, default: all): 
-        - all : subject 1~99
-        - small : pre-defined 5 subjects
-        - 1 : subject 1
-        - 1,2 : subject 1 and 2
-        - 1-3 : subject 1 to 3
+    * all : subject 1~99
+    * small : pre-defined 5 subjects
+    * 1 : subject 1
+    * 1,2 : subject 1 and 2
+    * 1-3 : subject 1 to 3
         
 * objModel(type: bool, default : True): 
-        - True : Download the scanned object 3D models
-        - False : Skip
+    * True : Download the scanned object 3D models
+    * False : Skip
 
 ⚠️ If the full dataset is not downloaded (e.g., setting the subject option to "small" or a specific subject index), only the s0 split is available in the dataloader.
 
