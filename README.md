@@ -84,7 +84,7 @@ Please check it if you need data on a specific type of subject.
 
 2. Unzip them all:
 	```bash
-	python scripts/unzip_data.py # unzip downloaded data
+	python scripts/unzip_data.py
 	```
 
 The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](./docs/visualization.md) for the explanation of how the files can be visualized.
@@ -92,15 +92,15 @@ The raw downloaded data can be found under `data/zipped/`. The unzipped data and
 
 ## Dataloader
 
-
+WIP(~7/19)
 
 ## Data visualization
 
-
+WIP(~7/19)
 
 ## Manual background augmentation
 
-
+WIP(~7/19)
 
 ## TODO ##
 
