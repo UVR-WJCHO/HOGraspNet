@@ -42,6 +42,8 @@ HOGraspNet/assets/urls/
 
 **Download procedure**
 
+⚠️ [24.07.18] Currently, when downloading large source data, the connection is repeatedly interrupted and reconnected. This is a network issue of our affiliated institution and will be resolved soon.
+
 1. Download the dataset 
 	1. with default option: 
 		- Cropped/Background augmented Images + Annotations + Masks
