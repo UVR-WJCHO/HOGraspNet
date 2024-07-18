@@ -1,21 +1,53 @@
 from enum import Enum, IntEnum
 
-## default dataset types ##
-split_types = list(range(5))
-subject_types = list(range(100))
-object_types = list(range(31))
-del subject_types[0]
-del object_types[0]
-grasp_types = [1,2,17,18,22,30,3,4,5,19,31,10,11,26,28,16,29,23,20,25,9,24,33,7,12,13,27,14]
+class cfg:
+    ## default dataset types ##
+    split_types = list(range(5))
+    subject_types = list(range(100))
+    object_types = list(range(31))
+    del subject_types[0]
+    del object_types[0]
+    grasp_types = [1,2,17,18,22,30,3,4,5,19,31,10,11,26,28,16,29,23,20,25,9,24,33,7,12,13,27,14]
 
-## parameters ##
-base_url_set = ["images_augmented", "annotations", "extra", "images"]
+    ## parameters ##
+    base_url_set = ["images_augmented", "annotations", "extra", "images"]
 
-_CAMIDSET = ['mas', 'sub1', 'sub2', 'sub3']
+    _CAMIDSET = ['mas', 'sub1', 'sub2', 'sub3']
 
-_TEST_OBJ_LIST = ['10','02','12','20','04','06','11']
-_TEST_GRASP_LIST = ['23','25','29','16']
+    _TEST_OBJ_LIST = ['10','02','12','20','04','06','11']
+    _TEST_GRASP_LIST = ['23','25','29','16']
 
+    CFG_OBJECT_SCALE_FIXED = [1.,
+    1.,
+    1.,
+    1.,
+    0.8296698468,
+    1.,
+    1.,
+    1.,
+    1.,
+    1.,
+    0.1035083229,
+    1.,
+    0.6706711338,
+    1.,
+        1.,
+        0.43,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.,
+        1.]
+    
 class OBJType(IntEnum):
     cracker_box = 1
     potted_meat_can = 2
@@ -49,33 +81,3 @@ class OBJType(IntEnum):
     cardboard_box = 30
 
 
-CFG_OBJECT_SCALE_FIXED = [1.,
-1.,
-1.,
-1.,
-0.8296698468,
-1.,
-1.,
-1.,
-1.,
-1.,
-0.1035083229,
-1.,
-0.6706711338,
-1.,
-1.,
-0.43,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.,
-1.]

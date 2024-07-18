@@ -17,7 +17,7 @@ def main():
     ## check if the url is set ##
     if os.path.isdir("assets/urls"):
         if len(os.listdir("assets/urls")) < 1:
-            print(f"ERROR: no files in assets/urls Check README.")
+            print(f"ERROR: no files in assets/urls. Check README.")
             sys.exit(0)
     else:
         print(f"ERROR: assets/urls not exists. Check README.")
