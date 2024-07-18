@@ -49,7 +49,7 @@ class HOGDataset():
         self.camIDset = cfg._CAMIDSET
 
         # create pkl once, load if exist.
-        self._data_pkl_pth = f'{setup}_{split}.pkl'
+        self._data_pkl_pth = f'cfg/{setup}_{split}.pkl'
         
         ## CHECK DATA 
         assert os.path.isdir(self._base_anno), "labeling data is not set, we require at least annotation & source(or source_augmented) to run dataloader"
@@ -282,7 +282,8 @@ class HOGDataset():
             dict_data['data'] = self.dataset_samples
             dict_data['mapping'] = self.mapping
             dict_data['camera_info'] = self.cam_param_dict
-
+            
+            os.makedirs("cfg", exist_ok=True)
             with open(self._data_pkl_pth, 'wb') as handle:
                 pickle.dump(dict_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -412,8 +413,8 @@ class HOGDataset():
 def main():
     from torch.utils.data import DataLoader
 
-    setup = 's4'
-    split = 'train'
+    setup = 's0'
+    split = 'test'
     print("loading ... ", setup + '_' + split)
 
     HOG_db = HOGDataset(setup,split)
