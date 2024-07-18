@@ -5,6 +5,8 @@ from tqdm import tqdm
 import urllib.request
 from config import *
 
+import wget
+import math
 
 def extractBbox(hand_2d, image_rows=1080, image_cols=1920, bbox_w=640, bbox_h=480):
     # consider fixed size bbox
@@ -71,12 +73,28 @@ class DownloadProgressBar(tqdm):
             self.total = tsize
         self.update(b * bsize - self.n)
 
+def bar_custom(current, total, width=80):
+    width=30
+    avail_dots = width-2
+    shaded_dots = int(math.floor(float(current) / total * avail_dots))
+    percent_bar = '[' + '■'*shaded_dots + ' '*(avail_dots-shaded_dots) + ']'
+    progress = "%d%% %s [%d / %d]" % (current / total * 100, percent_bar, current, total)
+    return progress
 
 def download_urls(urls, output_folder):
+    # for url in urls:
+    #     file_name = url.split('/')[-1]
+    #     output_path = os.path.join(output_folder, file_name)
+
+    #     with DownloadProgressBar(unit='B', unit_scale=True,
+    #                             miniters=1, desc=file_name) as t:
+    #         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
+
+        # header={"Accept-Encoding": "gzip", "Content-Type":"application/json"}
+        # data='{"message":"hello"}'
+        # response=requests.get(url)
+
     for url in urls:
         file_name = url.split('/')[-1]
         output_path = os.path.join(output_folder, file_name)
-
-        with DownloadProgressBar(unit='B', unit_scale=True,
-                                miniters=1, desc=file_name) as t:
-            urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
+        os.system(f"wget -c {url} -P {output_folder}")

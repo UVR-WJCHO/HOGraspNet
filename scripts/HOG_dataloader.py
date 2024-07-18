@@ -37,8 +37,11 @@ class HOGDataset():
         assert 'HOG_DIR' in os.environ, "environment variable 'HOG_DIR' is not set"
         self._base_dir = os.environ['HOG_DIR']
 
+        self._base_anno = os.path.join(self._base_dir, 'labeling_data')
         self._base_source = os.path.join(self._base_dir, 'source_data')
-        self._base_anno = os.path.join(self._base_dir, 'labeling_data')        
+        self._base_source_aug = os.path.join(self._base_dir, 'source_augmented')
+
+        self._base_extra = os.path.join(self._base_dir, 'extra_data')     
         self._obj_model_dir = os.path.join(self._base_dir, 'obj_scanned_models')
         
         self._h = 480
@@ -49,7 +52,10 @@ class HOGDataset():
         # create pkl once, load if exist.
         self._data_pkl_pth = f'{setup}_{split}.pkl'
         
-
+        ## CHECK DATA 
+        assert os.path.isdir(self._base_anno), "labeling data is not set, we require at least annotation & source(or source_augmented) to run dataloader"
+        assert os.path.isdir(self._base_source) or os.path.isdir(self._base_source_aug) , "source data is not set, we require at least annotation & source(or source_augmented) to run dataloader"
+        
         ## MINING SEQUENCE INFOS
         self._SUBJECTS, self._OBJ_IDX, self._GRASP_IDX, self._OBJ_GRASP_PAIR = [], [], [], []
         

@@ -6,10 +6,10 @@ Project page : [HOGraspNet](https://hograspnet2024.github.io/)
 
 ## Overview
 HOGraspNet provides the following data and models:
-- `data/Source_data`: Full 1920*1080 size RGB & Depth images ("Source_data/Object Pose" is unnecessary data. It will be removed soon.)
-- `data/Labeling_data`: Json files for annotations.
+- `data/source_data`: Full 1920*1080 size RGB & Depth images ("Source_data/Object Pose" is unnecessary data. It will be removed soon.)
+- `data/labeling_data`: Json files for annotations.
 - `data/extra_data`: Binary hand & object mask data for cropped image. (Bounding box is provided through the dataloader module.)
-- `data/Source_augmented`: Cropped images around the hand and background augmented RGB images.
+- `data/source_augmented`: Cropped images around the hand and background augmented RGB images.
 - `data/obj_scanned_models`: Manually scanned 3D models for 30 objects utilized in the dataset.
 
 <!-- See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download. -->
@@ -71,12 +71,12 @@ Depending on your usage of the dataset, we suggest different download options.
 
 
 * [TYPE] (type: int, default: 0): 
-    * 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
-    * 1 : Source_augmented + Labeling_data + extra_data + Source_data
-    * 2 : Source_augmented
-    * 3 : Labeling_data
+    * 0 : source_augmented(cropped) + labeling_data + extra_data(mask)
+    * 1 : 0 + source_data
+    * 2 : source_augmented
+    * 3 : labeling_data
     * 4 : extra_data
-    * 5 : Source_data
+    * 5 : source_data
 
 * [SUBJECT] (type: string, default: all): 
     * all : subject 1~99
