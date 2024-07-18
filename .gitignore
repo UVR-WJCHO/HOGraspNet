@@ -1,4 +1,4 @@
 __pycache__/
-assets/url/
+assets/urls/
 data/
-cfg/*
+cfg/
