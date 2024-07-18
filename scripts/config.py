@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, IntEnum
 
 ## default dataset types ##
 split_types = list(range(5))
