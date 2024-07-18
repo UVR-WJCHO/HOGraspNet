@@ -104,7 +104,7 @@ Depending on your usage of the dataset, we suggest different download options.
     * True : Download the scanned object 3D models
     * False : Skip
 
-⚠️ If the full dataset is not downloaded (e.g., setting the subject option to "small" or a specific subject index), only the s0 split is available in the dataloader.
+⚠️ If the full dataset is not downloaded (e.g., setting the subject option to "small" or a specific subject index), only the s0 split is fully available in the dataloader.
 
 
 **Subject info**
@@ -118,7 +118,7 @@ Please check it if you need data on a specific type of subject.
 
 1. Set the environment variable for dataset path
 ```bash
-	export HOG_DIR=/path/to/HOGGraspNet
+export HOG_DIR=/path/to/HOGGraspNet
 ```
 
 2. Utilize the dataloader as below
