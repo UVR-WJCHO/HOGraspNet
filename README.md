@@ -19,7 +19,7 @@ HOGraspNet provides the following data and models:
 
 Please fill this [form](https://forms.gle/UqH15zN2PiBGQDUs7) to download the dataset after reading the [terms and conditions](#terms).
 
-Set provided data asset in
+Set provided data asset as
 <!-- HOGraspNet/assets/checksum.json -->
 ```
 HOGraspNet/assets/urls/
@@ -29,38 +29,6 @@ HOGraspNet/assets/urls/
         images_augmented.txt: Cropped & background augmented RGB images
 
 ```
-
-**Options**
-
-Depending on your usage of the dataset, we suggest different download options. 
-
-
-* --type (type: int, default: 0): 
-    * 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
-    * 1 : Source_augmented + Labeling_data + extra_data + Source_data
-    * 2 : Source_augmented
-    * 3 : Labeling_data
-    * 4 : extra_data
-    * 5 : Source_data
-
-* --subject (type: string, default: all): 
-    * all : subject 1~99
-    * small : pre-defined 5 subjects
-    * 1 : subject 1
-    * 1,2 : subject 1 and 2
-    * 1-3 : subject 1 to 3
-        
-* --objModel (type: bool, default : True): 
-    * True : Download the scanned object 3D models
-    * False : Skip
-
-⚠️ If the full dataset is not downloaded (e.g., setting the subject option to "small" or a specific subject index), only the s0 split is available in the dataloader.
-
-
-**Subject info**
-
-Here, we provide a summary of each subject's information included in the dataset. [`HOGraspNet_subject_info`](./assets/HOGraspNet_subject_info.csv)
-Please check it if you need data on a specific type of subject.
 
 **Download procedure**
 
@@ -75,11 +43,8 @@ Please check it if you need data on a specific type of subject.
 		```
 
 	2. or with maual option (example): 
-		- Only Cropped/Background augmented Images
-		- Pre-defined 5 subjects
-
 		```bash
-		python scripts/download_data.py --type 2 --subject small --objModel False
+		python scripts/download_data.py --type [TYPE] --subject [SUBJECT] --objModel [OBJMODEL]
 		```
 
 2. Unzip them all:
@@ -88,6 +53,40 @@ Please check it if you need data on a specific type of subject.
 	```
 
 The raw downloaded data can be found under `data/zipped/`. The unzipped data and models can be found under `data/`. See [`visualization.md`](./docs/visualization.md) for the explanation of how the files can be visualized.
+
+
+**Options**
+
+Depending on your usage of the dataset, we suggest different download options. 
+
+
+* [TYPE] (type: int, default: 0): 
+    * 0 : Source_augmented(cropped) + Labeling_data + extra_data(mask)
+    * 1 : Source_augmented + Labeling_data + extra_data + Source_data
+    * 2 : Source_augmented
+    * 3 : Labeling_data
+    * 4 : extra_data
+    * 5 : Source_data
+
+* [SUBJECT] (type: string, default: all): 
+    * all : subject 1~99
+    * small : pre-defined 5 subjects
+    * 1 : subject 1
+    * 1,2 : subject 1 and 2
+    * 1-3 : subject 1 to 3
+        
+* [OBJMODEL] (type: bool, default : True): 
+    * True : Download the scanned object 3D models
+    * False : Skip
+
+⚠️ If the full dataset is not downloaded (e.g., setting the subject option to "small" or a specific subject index), only the s0 split is available in the dataloader.
+
+
+**Subject info**
+
+Here, we provide a summary of each subject's information included in the dataset. [`HOGraspNet_subject_info`](./assets/HOGraspNet_subject_info.csv)
+Please check it if you need data on a specific type of subject.
+
 
 
 ## Dataloader
