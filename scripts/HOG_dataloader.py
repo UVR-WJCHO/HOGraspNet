@@ -12,7 +12,6 @@ from tqdm import tqdm
 import pickle
 from config import cfg
 from utils import extractBbox
-
 # from pytorch3d.io import load_obj
 
 class HOGDataset():

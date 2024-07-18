@@ -1,6 +1,6 @@
 opencv-python
 tqdm
 wget
-torch
-torchvision
-numpy
+torch==2.3.1
+torchvision==0.18.1
+numpy==1.26.2

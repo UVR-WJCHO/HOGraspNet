@@ -70,8 +70,9 @@ def download_urls(urls, output_folder):
     for url in urls:
         file_name = url.split('/')[-1]
         output_path = os.path.join(output_folder, file_name)
+
         os.system(f"wget -c {url} -P {output_folder}")
-        # download_file(url, output_path)       ## not working
+        # download_file(url, output_path)
 
     # for url in urls:
     #     file_name = url.split('/')[-1]
