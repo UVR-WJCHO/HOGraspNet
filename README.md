@@ -17,9 +17,19 @@ HOGraspNet provides the following data and models:
 
 ## Download HOGraspNet
 
-Please fill this [form](https://forms.gle/UqH15zN2PiBGQDUs7) to download the dataset after reading the [terms and conditions](#terms).
+1. Please fill this [form](https://forms.gle/UqH15zN2PiBGQDUs7) to download the dataset after reading the [terms and conditions](#terms).
 
-Set provided data asset as
+2. Copy the data URL from the form, download it and unzip.
+
+```bash
+    git clone git@github.com:UVR-WJCHO/HOGraspNet.git
+    cd HOGraspNet/assets
+    wget [URL]
+    unzip urls.zip
+    cd ..
+```
+
+After running the above, you should expect:
 <!-- HOGraspNet/assets/checksum.json -->
 ```
 HOGraspNet/assets/urls/
