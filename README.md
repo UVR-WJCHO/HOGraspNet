@@ -116,12 +116,12 @@ Please check it if you need data on a specific type of subject.
 
 ## Dataloader
 
-1. Set the environment variable for dataset path
+* Set the environment variable for dataset path
 ```bash
 export HOG_DIR=/path/to/HOGGraspNet
 ```
 
-2. Utilize the dataloader as below
+* Utilize the dataloader as below
 
 ```bash
 from scripts.HOG_dataloader import HOGDataset
@@ -130,6 +130,9 @@ setup = 's2'
 split = 'test'
 dataloader = HOGDataset(setup, split)
 ```
+
+* See [`data_structure.md`](./docs/data_structure.md) for detailed structures of the sample from dataloader (WIP)
+
 
 
 ## Data visualization
