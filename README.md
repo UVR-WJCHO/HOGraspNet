@@ -16,7 +16,7 @@ HOGraspNet provides the following data and models:
 
 ## Installation
 
-- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window.
+- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux.
 - Clone and install the following main packages.
 ```bash
 git clone git@github.com:UVR-WJCHO/HOGraspNet.git
