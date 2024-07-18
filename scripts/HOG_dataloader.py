@@ -45,6 +45,9 @@ class HOGDataset():
         self._w = 640
 
         self.camIDset = _CAMIDSET
+
+        # create pkl once, load if exist.
+        self._data_pkl_pth = f'{setup}_{split}.pkl'
         
 
         ## MINING SEQUENCE INFOS
@@ -166,175 +169,146 @@ class HOGDataset():
 
         #########################################
 
-
-        total_count = 0
-
-        self.mapping = [] # its location
         
         # for each object has its mapping index which contains s,t,c,f (subject,trial,cam,frame)
-
-        ## SEQ : S
+        total_count = 0
         self.load = False
-        ##### 
-
+        self.mapping = [] # its location
         self.CameraParm_K_M_dict = {}
-
         SEQ_DICT_APPEND = {}
-       
-        self._data_pkl_pth = f'{setup}_{split}.pkl'
 
-        for seqIdx, seq in enumerate(tqdm(self._seq_dict_list)):
+        ## load pkl if exist
+        if os.path.isfile(self._data_pkl_pth) :
+            with open(self._data_pkl_pth, 'rb') as handle:
+                dict_data = pickle.load(handle)
 
-            ## if file exist, break ##
-            if os.path.isfile(data_pkl_pth) :
-
-                with open(data_pkl_pth, 'rb') as handle:
-                    dict_data = pickle.load(handle)
-
-                self.dataset_samples = dict_data['data']
-                self.mapping = dict_data['mapping']
-                self.CameraParm_K_M_dict = dict_data['camera_info']
-            
-                self.load = True
-
-                break
-
-
-            if seq['subject'] not in subject_ind :
-                continue
-
-            if seq['obj_grasp_pair'] not in obj_grasp_pair_ind :
-                continue
-
-            seqDir = os.path.join(self.base_anno, seq['seqName'])
-
-            ## TRIAL : T
-
-            TRIAL_DICT_APPEND = {}
-            CAM_dict_trial = {}
-
-            for trialIdx, trialName in enumerate(sorted(os.listdir(seqDir))):
-                
-                if trial_ind == 'test' and trialIdx != 0:
-                    continue           
-
-                if trial_ind == 'train' and trialIdx == 0:    
+            self.dataset_samples = dict_data['data']
+            self.mapping = dict_data['mapping']
+            self.CameraParm_K_M_dict = dict_data['camera_info']            
+        else:
+            for seqIdx, seq in enumerate(tqdm(self._seq_dict_list)):
+                # skip if not target sequence
+                if seq['subject'] not in subject_ind :
+                    continue
+                if seq['obj_grasp_pair'] not in obj_grasp_pair_ind :
                     continue
 
-                ## CAM : C
-                valid_cams = []
-
-                for camID in self.camIDset:
-
-                    p = os.path.join(seqDir, trialName, 'annotation', camID)
-
-                    if os.path.exists(p):
-
-                        valid_cams.append(camID)
-
-
-                anno_base_path = os.path.join(self.base_anno, seq['seqName'], trialName, 'annotation')
-
-                Ks_dict = {}
-                Ms_dict = {}
-
-                for camID in self.camIDset:
-                    if camID in valid_cams:
-
-                        anno_list = os.listdir(os.path.join(anno_base_path, camID))
-                        anno_path = os.path.join(anno_base_path, camID, anno_list[0])
-
-                        with open(anno_path, 'r', encoding='UTF-8 SIG') as file:
-                            anno = json.load(file)
-
-                        Ks = torch.FloatTensor(np.squeeze(np.asarray(anno['calibration']['intrinsic']))).to(self.device)
-
-                        Ms = np.squeeze(np.asarray(anno['calibration']['extrinsic']))
-                        Ms = np.reshape(Ms, (3, 4))
-
-                        ## will be processed in postprocess, didn't.
-                        Ms[:, -1] = Ms[:, -1] / 10.0
-                        Ms = torch.Tensor(Ms).to(self.device)
-
-                        Ks_dict[camID] = Ks
-                        Ms_dict[camID] = Ms
-
-                    else:
-                        Ks_dict[camID] = None
-                        Ms_dict[camID] = None
-
+                TRIAL_DICT_APPEND = {}
+                CAM_dict_trial = {}
                 
-                self.Ks_dict = Ks_dict # Camera Intrinsic
-                self.Ms_dict = Ms_dict # Camera Extrinsic
-                self.valid_cams = valid_cams
-
-                temp_dict = {}
-
-                temp_dict['Ks_dict'] = self.Ks_dict
-                temp_dict['Ms_dict'] = self.Ms_dict
-
-                CAM_dict_trial[trialName] = temp_dict
-
-                ###### CAN LOAD OBJ MESH #######
-
-                #self.obj_mesh_data = self.load_obj_mesh() #### 시간때문에 삭제 했음, Rendering이 필요할 때 사용
-
-                #### wj 
-                self.anno_dict, rgb_dict = self.load_data(self.base_anno, self.base_source, seq['seqName'], trialName, self.valid_cams)
-
-                ## anno_path, rgb_path 모두 sample 별로 존재하고 있음 
-                
-                #self.anno_dict, rgb, depth = self.load_data(self.base_anno, self.base_source, seq['seqName'], trialName, self.valid_cams)
-
-                # self.samples = self.set_sample(rgb_path) ## bounding box and rgb image
-                # self.samples = self.set_sample(rgb,depth) ## bounding box and rgb image
-                
-                CAM_DICT_APPEND = {} # set_sample 에서 
-
-                for camIDX, camID in enumerate(valid_cams) :
-
-                    if camID not in serial_ind :
-                        
+                seqDir = os.path.join(self._base_anno, seq['seqName'])
+                for trialIdx, trialName in enumerate(sorted(os.listdir(seqDir))):               
+                    # skip if not target trial
+                    if trial_ind == 'train' and trialIdx == 0:    
                         continue
+                    if trial_ind == 'test' and trialIdx != 0:
+                        continue 
+                    if trial_ind == 'valid' and trialIdx != 1:
+                        continue 
 
-                    ##### FRAM : F ######
+                    cam_list = os.listdir(os.path.join(seqDir, trialName, 'annotation'))
 
-                    FRAME_DICT_APPEND = {}
+                    anno_base_path = os.path.join(seqDir, trialName, 'annotation')
 
-                    for frame_idx, frame in enumerate(self.anno_dict[camID]) :
+                    Ks_dict = {}
+                    Ms_dict = {}
 
-                        sample = {
-                            'rgb_path': rgb_dict[camID][frame_idx], ## rgb path로 수정하기
-                            # 'bbox' :  None, ## bbox 수정하기 나중에 rgb load 그리고 annotation load 할 때 Crop 하는 알고리듬도 추가하기
-                            'label_path': self.anno_dict[camID][frame_idx], ## path 로 주는 것으로 수정하기
-                            # 'intrinsics': None, # Ks_dict[camID], ## 중복됨 Seq,Trail에 Dependent 하게 수정하기 
-                            # 'extrinsics': None, # Ms_dict[camID], ## 중복됨                                 
-                            'obj_ids': seq['obj_idx'],
-                            # 'mano_side':  None, ## frame['Mesh'][0]['mano_side'], -> label path 로 load 하기 
-                            # 'mano_betas': None, ## frame['Mesh'][0]['mano_betas'],
-                            'taxonomy': seq['grasp_idx'],
-                        }
+                    for camID in self.camIDset:
+                        if camID in valid_cams:
 
-                        FRAME_DICT_APPEND[str(frame_idx)] = sample
-                        
-                        frame_num = self.anno_dict[camID][frame_idx].split('/')[-1].split('_')[-1][:-5]
+                            anno_list = os.listdir(os.path.join(anno_base_path, camID))
+                            anno_path = os.path.join(anno_base_path, camID, anno_list[0])
 
-                        self.mapping.append([seq['seqName'],trialName,camID, frame_idx, str(frame_num)])
+                            with open(anno_path, 'r', encoding='UTF-8 SIG') as file:
+                                anno = json.load(file)
+
+                            Ks = torch.FloatTensor(np.squeeze(np.asarray(anno['calibration']['intrinsic']))).to(self.device)
+
+                            Ms = np.squeeze(np.asarray(anno['calibration']['extrinsic']))
+                            Ms = np.reshape(Ms, (3, 4))
+
+                            ## will be processed in postprocess, didn't.
+                            Ms[:, -1] = Ms[:, -1] / 10.0
+                            Ms = torch.Tensor(Ms).to(self.device)
+
+                            Ks_dict[camID] = Ks
+                            Ms_dict[camID] = Ms
+
+                        else:
+                            Ks_dict[camID] = None
+                            Ms_dict[camID] = None
 
                     
-                    CAM_DICT_APPEND[camID] = FRAME_DICT_APPEND
+                    self.Ks_dict = Ks_dict # Camera Intrinsic
+                    self.Ms_dict = Ms_dict # Camera Extrinsic
+                    self.valid_cams = valid_cams
 
-                TRIAL_DICT_APPEND[trialName] = CAM_DICT_APPEND
-                
-            self.CameraParm_K_M_dict[seq['seqName']] = CAM_dict_trial
+                    temp_dict = {}
 
-            SEQ_DICT_APPEND[seq['seqName']] = TRIAL_DICT_APPEND
+                    temp_dict['Ks_dict'] = self.Ks_dict
+                    temp_dict['Ms_dict'] = self.Ms_dict
 
-        if not self.load :        
+                    CAM_dict_trial[trialName] = temp_dict
+
+                    ###### CAN LOAD OBJ MESH #######
+
+                    #self.obj_mesh_data = self.load_obj_mesh() #### 시간때문에 삭제 했음, Rendering이 필요할 때 사용
+
+                    #### wj 
+                    self.anno_dict, rgb_dict = self.load_data(self.base_anno, self.base_source, seq['seqName'], trialName, self.valid_cams)
+
+                    ## anno_path, rgb_path 모두 sample 별로 존재하고 있음 
+                    
+                    #self.anno_dict, rgb, depth = self.load_data(self.base_anno, self.base_source, seq['seqName'], trialName, self.valid_cams)
+
+                    # self.samples = self.set_sample(rgb_path) ## bounding box and rgb image
+                    # self.samples = self.set_sample(rgb,depth) ## bounding box and rgb image
+                    
+                    CAM_DICT_APPEND = {} # set_sample 에서 
+
+                    for camIDX, camID in enumerate(valid_cams) :
+
+                        if camID not in serial_ind :
+                            
+                            continue
+
+                        ##### FRAM : F ######
+
+                        FRAME_DICT_APPEND = {}
+
+                        for frame_idx, frame in enumerate(self.anno_dict[camID]) :
+
+                            sample = {
+                                'rgb_path': rgb_dict[camID][frame_idx], ## rgb path로 수정하기
+                                # 'bbox' :  None, ## bbox 수정하기 나중에 rgb load 그리고 annotation load 할 때 Crop 하는 알고리듬도 추가하기
+                                'label_path': self.anno_dict[camID][frame_idx], ## path 로 주는 것으로 수정하기
+                                # 'intrinsics': None, # Ks_dict[camID], ## 중복됨 Seq,Trail에 Dependent 하게 수정하기 
+                                # 'extrinsics': None, # Ms_dict[camID], ## 중복됨                                 
+                                'obj_ids': seq['obj_idx'],
+                                # 'mano_side':  None, ## frame['Mesh'][0]['mano_side'], -> label path 로 load 하기 
+                                # 'mano_betas': None, ## frame['Mesh'][0]['mano_betas'],
+                                'taxonomy': seq['grasp_idx'],
+                            }
+
+                            FRAME_DICT_APPEND[str(frame_idx)] = sample
+                            
+                            frame_num = self.anno_dict[camID][frame_idx].split('/')[-1].split('_')[-1][:-5]
+
+                            self.mapping.append([seq['seqName'],trialName,camID, frame_idx, str(frame_num)])
+
+                        
+                        CAM_DICT_APPEND[camID] = FRAME_DICT_APPEND
+
+                    TRIAL_DICT_APPEND[trialName] = CAM_DICT_APPEND
+                    
+                self.CameraParm_K_M_dict[seq['seqName']] = CAM_dict_trial
+
+                SEQ_DICT_APPEND[seq['seqName']] = TRIAL_DICT_APPEND
+
             self.dataset_samples = SEQ_DICT_APPEND
 
+            ## save pkl
             dict_data = {}
-
             dict_data['data'] = self.dataset_samples
             dict_data['mapping'] = self.mapping
             dict_data['camera_info'] = self.CameraParm_K_M_dict
@@ -344,7 +318,6 @@ class HOGDataset():
 
     def get_mapping(self):
         return self.mapping
-
 
     def get_len(self, camID):
         return len(self.anno_dict[camID])
