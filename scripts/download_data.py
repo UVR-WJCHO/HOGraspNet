@@ -10,17 +10,17 @@ from utils import check_args, download_urls
 
 def main():
     ## config ##
-    base_url_path = "./assets/url/"    
+    base_url_path = "./assets/urls/"    
     base_obj_models_url = "http://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip"
 
     
     ## check if the url is set ##
-    if os.path.isdir("assets/url"):
-        if len(os.listdir("assets/url")) < 1:
-            print(f"ERROR: no files in assets/url Check README.")
+    if os.path.isdir("assets/urls"):
+        if len(os.listdir("assets/urls")) < 1:
+            print(f"ERROR: no files in assets/urls Check README.")
             sys.exit(0)
     else:
-        print(f"ERROR: assets/url not exists. Check README.")
+        print(f"ERROR: assets/urls not exists. Check README.")
         sys.exit(0)
 
 

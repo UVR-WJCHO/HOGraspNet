@@ -212,16 +212,14 @@ class HOGDataset():
                     if trial_ind == 'valid' and trialIdx != 1:
                         continue 
 
-                    cam_list = os.listdir(os.path.join(seqDir, trialName, 'annotation'))
-
                     anno_base_path = os.path.join(seqDir, trialName, 'annotation')
+                    valid_cams = os.listdir(anno_base_path)
 
                     Ks_dict = {}
                     Ms_dict = {}
 
                     for camID in self.camIDset:
                         if camID in valid_cams:
-
                             anno_list = os.listdir(os.path.join(anno_base_path, camID))
                             anno_path = os.path.join(anno_base_path, camID, anno_list[0])
 
@@ -229,12 +227,9 @@ class HOGDataset():
                                 anno = json.load(file)
 
                             Ks = torch.FloatTensor(np.squeeze(np.asarray(anno['calibration']['intrinsic']))).to(self.device)
-
                             Ms = np.squeeze(np.asarray(anno['calibration']['extrinsic']))
                             Ms = np.reshape(Ms, (3, 4))
-
-                            ## will be processed in postprocess, didn't.
-                            Ms[:, -1] = Ms[:, -1] / 10.0
+                            # Ms[:, -1] = Ms[:, -1] / 10.0
                             Ms = torch.Tensor(Ms).to(self.device)
 
                             Ks_dict[camID] = Ks
@@ -244,34 +239,24 @@ class HOGDataset():
                             Ks_dict[camID] = None
                             Ms_dict[camID] = None
 
-                    
                     self.Ks_dict = Ks_dict # Camera Intrinsic
                     self.Ms_dict = Ms_dict # Camera Extrinsic
                     self.valid_cams = valid_cams
 
                     temp_dict = {}
-
                     temp_dict['Ks_dict'] = self.Ks_dict
                     temp_dict['Ms_dict'] = self.Ms_dict
 
                     CAM_dict_trial[trialName] = temp_dict
 
-                    ###### CAN LOAD OBJ MESH #######
 
-                    #self.obj_mesh_data = self.load_obj_mesh() #### 시간때문에 삭제 했음, Rendering이 필요할 때 사용
-
-                    #### wj 
-                    self.anno_dict, rgb_dict = self.load_data(self.base_anno, self.base_source, seq['seqName'], trialName, self.valid_cams)
-
-                    ## anno_path, rgb_path 모두 sample 별로 존재하고 있음 
-                    
-                    #self.anno_dict, rgb, depth = self.load_data(self.base_anno, self.base_source, seq['seqName'], trialName, self.valid_cams)
+                    ## TODO : case only for self._base_source_aug 
+                    self.anno_dict, rgb_dict = self.load_data(self._base_anno, self._base_source, seq['seqName'], trialName, self.valid_cams)
 
                     # self.samples = self.set_sample(rgb_path) ## bounding box and rgb image
                     # self.samples = self.set_sample(rgb,depth) ## bounding box and rgb image
                     
                     CAM_DICT_APPEND = {} # set_sample 에서 
-
                     for camIDX, camID in enumerate(valid_cams) :
 
                         if camID not in serial_ind :
@@ -282,35 +267,30 @@ class HOGDataset():
 
                         FRAME_DICT_APPEND = {}
 
-                        for frame_idx, frame in enumerate(self.anno_dict[camID]) :
-
+                        for anno_idx, anno_path in enumerate(self.anno_dict[camID]) :
+                            with open(anno_path, 'r', encoding='UTF-8 SIG') as file:
+                                 anno_data = json.load(file)
                             sample = {
-                                'rgb_path': rgb_dict[camID][frame_idx], ## rgb path로 수정하기
+                                'rgb_path': rgb_dict[camID][anno_idx], ## rgb path로 수정하기
                                 # 'bbox' :  None, ## bbox 수정하기 나중에 rgb load 그리고 annotation load 할 때 Crop 하는 알고리듬도 추가하기
-                                'label_path': self.anno_dict[camID][frame_idx], ## path 로 주는 것으로 수정하기
-                                # 'intrinsics': None, # Ks_dict[camID], ## 중복됨 Seq,Trail에 Dependent 하게 수정하기 
-                                # 'extrinsics': None, # Ms_dict[camID], ## 중복됨                                 
+                                'label_path': self.anno_dict[camID][anno_idx], ## path 로 주는 것으로 수정하기
                                 'obj_ids': seq['obj_idx'],
                                 # 'mano_side':  None, ## frame['Mesh'][0]['mano_side'], -> label path 로 load 하기 
                                 # 'mano_betas': None, ## frame['Mesh'][0]['mano_betas'],
                                 'taxonomy': seq['grasp_idx'],
                             }
 
-                            FRAME_DICT_APPEND[str(frame_idx)] = sample
+                            FRAME_DICT_APPEND[str(anno_idx)] = sample
                             
-                            frame_num = self.anno_dict[camID][frame_idx].split('/')[-1].split('_')[-1][:-5]
+                            frame_num = self.anno_dict[camID][anno_idx].split('/')[-1].split('_')[-1][:-5]
 
-                            self.mapping.append([seq['seqName'],trialName,camID, frame_idx, str(frame_num)])
+                            self.mapping.append([seq['seqName'],trialName,camID, anno_idx, str(frame_num)])
 
                         
                         CAM_DICT_APPEND[camID] = FRAME_DICT_APPEND
-
-                    TRIAL_DICT_APPEND[trialName] = CAM_DICT_APPEND
-                    
+                    TRIAL_DICT_APPEND[trialName] = CAM_DICT_APPEND                    
                 self.CameraParm_K_M_dict[seq['seqName']] = CAM_dict_trial
-
                 SEQ_DICT_APPEND[seq['seqName']] = TRIAL_DICT_APPEND
-
             self.dataset_samples = SEQ_DICT_APPEND
 
             ## save pkl
