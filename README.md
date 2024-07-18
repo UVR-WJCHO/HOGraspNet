@@ -19,9 +19,9 @@ HOGraspNet provides the following data and models:
 - This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window.
 - Clone and install the following main packages.
 ```bash
-    git clone git@github.com:UVR-WJCHO/HOGraspNet.git
-    cd HOGraspNet
-	pip install -r requirements.txt
+git clone git@github.com:UVR-WJCHO/HOGraspNet.git
+cd HOGraspNet
+pip install -r requirements.txt
 ```
 - (TBD, for visualization) Install pytorch3d following [here](https://github.com/facebookresearch/pytorch3d) (our code uses version 0.7.3)
 
@@ -34,10 +34,10 @@ HOGraspNet provides the following data and models:
 2. Copy the data URL from the form, download it and unzip.
 
 ```bash
-    cd assets
-    wget [URL]
-    unzip urls.zip
-    cd ..
+cd assets
+wget [URL]
+unzip urls.zip
+cd ..
 ```
 
 
