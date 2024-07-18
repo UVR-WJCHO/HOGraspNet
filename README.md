@@ -17,11 +17,13 @@ HOGraspNet provides the following data and models:
 ## Installation
 
 - This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window.
-- Create a conda environment and install the following main packages.
+- Clone and install the following main packages.
 ```bash
+    git clone git@github.com:UVR-WJCHO/HOGraspNet.git
+    cd HOGraspNet
 	pip install -r requirements.txt
 ```
-- Install pytorch3d following [here](https://github.com/facebookresearch/pytorch3d) (our code uses version 0.7.3)
+- (TBD, for visualization) Install pytorch3d following [here](https://github.com/facebookresearch/pytorch3d) (our code uses version 0.7.3)
 
 
 
@@ -32,8 +34,7 @@ HOGraspNet provides the following data and models:
 2. Copy the data URL from the form, download it and unzip.
 
 ```bash
-    git clone git@github.com:UVR-WJCHO/HOGraspNet.git
-    cd HOGraspNet/assets
+    cd assets
     wget [URL]
     unzip urls.zip
     cd ..
@@ -123,11 +124,11 @@ Please check it if you need data on a specific type of subject.
 2. Utilize the dataloader as below
 
 ```bash
-	from scripts.HOG_dataloader import HOGDataset
+from scripts.HOG_dataloader import HOGDataset
 
-    setup = 's2'
-    split = 'test'
-    dataloader = HOGDataset(setup, split)
+setup = 's2'
+split = 'test'
+dataloader = HOGDataset(setup, split)
 ```
 
 
