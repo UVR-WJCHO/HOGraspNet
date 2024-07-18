@@ -14,6 +14,16 @@ HOGraspNet provides the following data and models:
 
 <!-- See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download. -->
 
+## Installation
+
+- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window.
+- Create a conda environment and install the following main packages.
+```bash
+	pip install -r requirements.txt
+```
+- Install pytorch3d following [here](https://github.com/facebookresearch/pytorch3d) (our code uses version 0.7.3)
+
+
 
 ## Download HOGraspNet
 
@@ -29,6 +39,7 @@ HOGraspNet provides the following data and models:
     cd ..
 ```
 
+
 After running the above, you should expect:
 <!-- HOGraspNet/assets/checksum.json -->
 ```
@@ -43,6 +54,7 @@ HOGraspNet/assets/urls/
 **Download procedure**
 
 ⚠️ [24.07.18] Currently, when downloading large source data, the connection is repeatedly interrupted and reconnected. This is a network issue of our affiliated institution and will be resolved soon.
+
 
 1. Download the dataset 
 	1. with default option: 
@@ -103,15 +115,29 @@ Please check it if you need data on a specific type of subject.
 
 ## Dataloader
 
-WIP(~7/19)
+1. Set the environment variable for dataset path
+```bash
+	export HOG_DIR=/path/to/HOGGraspNet
+```
+
+2. Utilize the dataloader as below
+
+```bash
+	from scripts.HOG_dataloader import HOGDataset
+
+    setup = 's2'
+    split = 'test'
+    dataloader = HOGDataset(setup, split)
+```
+
 
 ## Data visualization
 
-WIP(~7/19)
+WIP
 
 ## Manual background augmentation
 
-WIP(~7/19)
+WIP
 
 ## TODO ##
 

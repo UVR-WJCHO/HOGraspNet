@@ -3,19 +3,17 @@
 
 import os
 import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import json
-from pytorch3d.io import load_obj
 import torch
 import numpy as np
 import cv2
 from tqdm import tqdm
 import pickle
-import math
-import random
-
 from config import cfg
 from utils import extractBbox
 
+# from pytorch3d.io import load_obj
 
 class HOGDataset():
     def __init__(self, setup, split, use_aug=False, load_pkl=True):
@@ -293,36 +291,36 @@ class HOGDataset():
     def get_mapping(self):
         return self.mapping
 
-    def load_hand_mesh(self):
-        from manopth.manolayer import ManoLayer
-        mano_path = os.path.join(os.getcwd(), 'modules', 'mano', 'models')
-        self.mano_layer = ManoLayer(side='right', mano_root=mano_path, use_pca=False, flat_hand_mean=True,
-                               center_idx=0, ncomps=45, root_rot_mode="axisang", joint_rot_mode="axisang").to(self.device)
-        self.hand_faces_template = self.mano_layer.th_faces.repeat(1, 1, 1)
+    # def load_hand_mesh(self):
+    #     from manopth.manolayer import ManoLayer
+    #     mano_path = os.path.join(os.getcwd(), 'modules', 'mano', 'models')
+    #     self.mano_layer = ManoLayer(side='right', mano_root=mano_path, use_pca=False, flat_hand_mean=True,
+    #                            center_idx=0, ncomps=45, root_rot_mode="axisang", joint_rot_mode="axisang").to(self.device)
+    #     self.hand_faces_template = self.mano_layer.th_faces.repeat(1, 1, 1)
 
-    def load_obj_mesh(self):
-        target_mesh_class = str(self.obj_id).zfill(2) + '_' + str(OBJType(int(self.obj_id)).name)
-        self.obj_mesh_name = target_mesh_class + '.obj'
+    # def load_obj_mesh(self):
+    #     target_mesh_class = str(self.obj_id).zfill(2) + '_' + str(OBJType(int(self.obj_id)).name)
+    #     self.obj_mesh_name = target_mesh_class + '.obj'
 
-        obj_mesh_path = os.path.join(self.baseDir, self.objModelDir, target_mesh_class, self.obj_mesh_name)
-        obj_scale = CFG_OBJECT_SCALE_FIXED[int(self.obj_id) - 1]
-        obj_verts, obj_faces, _ = load_obj(obj_mesh_path)
-        obj_verts_template = (obj_verts * float(obj_scale)).to(self.device)
-        obj_faces_template = torch.unsqueeze(obj_faces.verts_idx, axis=0).to(self.device)
+    #     obj_mesh_path = os.path.join(self.baseDir, self.objModelDir, target_mesh_class, self.obj_mesh_name)
+    #     obj_scale = CFG_OBJECT_SCALE_FIXED[int(self.obj_id) - 1]
+    #     obj_verts, obj_faces, _ = load_obj(obj_mesh_path)
+    #     obj_verts_template = (obj_verts * float(obj_scale)).to(self.device)
+    #     obj_faces_template = torch.unsqueeze(obj_faces.verts_idx, axis=0).to(self.device)
 
-        # h = torch.ones((obj_verts_template.shape[0], 1), device=self.device)
-        # self.obj_verts_template_h = torch.cat((obj_verts_template, h), 1)
+    #     # h = torch.ones((obj_verts_template.shape[0], 1), device=self.device)
+    #     # self.obj_verts_template_h = torch.cat((obj_verts_template, h), 1)
 
-        obj_mesh_data = {}
-        obj_mesh_data['verts'] = obj_verts_template
-        obj_mesh_data['faces'] = obj_faces_template
+    #     obj_mesh_data = {}
+    #     obj_mesh_data['verts'] = obj_verts_template
+    #     obj_mesh_data['faces'] = obj_faces_template
 
-        return obj_mesh_data
+    #     return obj_mesh_data
 
-    def get_obj_pose(self, camID, idx):
-        anno = self.anno_dict[camID][idx]
-        obj_mat = np.squeeze(np.asarray(anno['Mesh'][0]['object_mat']))
-        return obj_mat
+    # def get_obj_pose(self, camID, idx):
+    #     anno = self.anno_dict[camID][idx]
+    #     obj_mat = np.squeeze(np.asarray(anno['Mesh'][0]['object_mat']))
+    #     return obj_mat
 
     def load_data(self, seqName, trialName, valid_cams):
 
@@ -411,13 +409,11 @@ class HOGDataset():
 
 
 def main():
-    from torch.utils.data import DataLoader
-
-    setup = 's0'
+    setup = 's2'
     split = 'test'
     print("loading ... ", setup + '_' + split)
 
-    HOG_db = HOGDataset(setup,split)
+    HOG_db = HOGDataset(setup, split)
 
     print("db len: ", len(HOG_db))
     data = HOG_db[0]

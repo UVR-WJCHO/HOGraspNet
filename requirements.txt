@@ -1,1 +1,6 @@
-wget==3.2
+opencv-python
+tqdm
+wget
+torch
+torchvision
+numpy
