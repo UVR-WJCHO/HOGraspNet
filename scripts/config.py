@@ -11,6 +11,7 @@ base_url_set = ["images_augmented", "annotations", "extra", "images"]
 
 CAMIDSET = ['mas', 'sub1', 'sub2', 'sub3']
 
+test_obj_list = ['10','02','12','20','04','06','11']
 
 
 class OBJType(IntEnum):

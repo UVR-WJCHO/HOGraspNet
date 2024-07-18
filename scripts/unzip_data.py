@@ -25,6 +25,7 @@ def main():
     zips = [[], [], [], []]
 
     fname_types = ["Labeling_data","extra_data","Source_augmented","Source_data"]
+    fname_outs = ["labeling_data","extra_data","source_augmented","source_data"]
     for fname in fnames:
         if not ".zip" in fname:
             continue
@@ -33,9 +34,9 @@ def main():
                 zip_list.append(fname)
                 break
 
-    for fname_type, zip_list in zip(fname_types, zips):
-        output_path = os.path.join(base_path, fname_type)
-        os.makedirs(output_path, exist_ok=True)
+    for fname_type, zip_list, fname_out in zip(fname_types, zips, fname_outs):
+        output_path = os.path.join(base_path, fname_out)
+        # os.makedirs(output_path, exist_ok=True)
 
         pbar = tqdm(zip_list)
         for zip_file in pbar:
