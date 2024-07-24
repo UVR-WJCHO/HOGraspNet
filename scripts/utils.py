@@ -3,6 +3,7 @@ import wget
 from config import cfg
 # import requests, time
 # from tqdm import tqdm
+# import urllib
 # import math
 # import shutil
 
@@ -74,13 +75,13 @@ def download_urls(urls, output_folder):
         os.system(f"wget -c {url} -P {output_folder}")
         # download_file(url, output_path)
 
-    # for url in urls:
-    #     file_name = url.split('/')[-1]
-    #     output_path = os.path.join(output_folder, file_name)
+#     for url in urls:
+#         file_name = url.split('/')[-1]
+#         output_path = os.path.join(output_folder, file_name)
 
-    #     with DownloadProgressBar(unit='B', unit_scale=True,
-    #                             miniters=1, desc=file_name) as t:
-    #         urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
+#         with DownloadProgressBar(unit='B', unit_scale=True,
+#                                 miniters=1, desc=file_name) as t:
+#             urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
 
 # class DownloadProgressBar(tqdm):

@@ -147,7 +147,7 @@ WIP
 
 <!-- - [ ] An uncompleted task
 - [x] A completed task -->
-
+- [x] Update data server protocol as HTTP to HTTPS (24/07/24)
 - [ ] HALO model annotation (ETA: 24/07)
 - [ ] Full continuous video sequence (ETA: 24/08)
 - [ ] HOGraspNet v2 (ETA: 24/08)
