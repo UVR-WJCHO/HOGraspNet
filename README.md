@@ -4,6 +4,8 @@ This repository contains instructions on getting the data and code of the work `
 Project page : [HOGraspNet](https://hograspnet2024.github.io/)
 
 
+⚠️ [24.07.31] We are currently transferring the full dataset to another server. Please wait until we announce the new dataset download link.
+
 ## Overview
 HOGraspNet provides the following data and models:
 - `data/source_data`: Full 1920*1080 size RGB & Depth images ("Source_data/Object Pose" is unnecessary data. It will be removed soon.)
