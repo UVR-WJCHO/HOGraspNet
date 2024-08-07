@@ -4,7 +4,7 @@ This repository contains instructions on getting the data and code of the work `
 Project page : [HOGraspNet](https://hograspnet2024.github.io/)
 
 
-⚠️ [24.07.31] We are currently transferring the full dataset to another server. Please wait until we announce the new dataset download link.
+⚠️ We are currently transferring the full dataset to another server. Please wait until we announce the new dataset download link. [ETA : ~8/9]
 
 ## Overview
 HOGraspNet provides the following data and models:
