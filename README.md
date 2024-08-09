@@ -37,7 +37,7 @@ pip install -r requirements.txt
 
 ```bash
 cd assets
-wget [URL]
+wget -O urls.zip "[URL]"
 unzip urls.zip
 cd ..
 ```
