@@ -54,6 +54,8 @@ HOGraspNet/assets/urls/
 
 **Download procedure**
 
+⚠️ [24.08.09] The connection to Dropbox shared links is often unstable. We are testing alternative methods to ensure a stable download environment.
+
 1. Download the dataset 
 	1. with default option: 
 		- Cropped/Background augmented Images + Annotations + Masks
