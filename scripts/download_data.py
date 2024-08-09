@@ -11,7 +11,7 @@ from utils import check_args, download_urls
 def main():
     ## config ##
     base_url_path = "./assets/urls/"    
-    base_obj_models_url = "https://data.uvrlab.org/datasets/HOGraspNet/HOGraspNet_obj_models.zip"
+    base_obj_models_url = "https://www.dropbox.com/scl/fi/lpud17kswi3dj6egtihbs/HOGraspNet_obj_models.zip?rlkey=d8hkdwieecp557gx39y0bc6tw&st=jxh42gsc&dl=0"
 
     
     ## check if the url is set ##

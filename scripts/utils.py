@@ -65,4 +65,5 @@ def check_args(arg_type, arg_subject):
 def download_urls(urls, output_folder):
     for url in urls:
         file_name = url.split('/')[-1].split('?')[0]
-        os.system(f"wget -O {file_name} {url}")
+        url = url[:-1] + '1'
+        os.system(f"wget -O {file_name} \"{url}\"")
