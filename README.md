@@ -4,8 +4,6 @@ This repository contains instructions on getting the data and code of the work `
 Project page : [HOGraspNet](https://hograspnet2024.github.io/)
 
 
-⚠️ We are currently transferring the full dataset to another server. Please wait until we announce the new dataset download link. [ETA : ~8/9]
-
 ## Overview
 HOGraspNet provides the following data and models:
 - `data/source_data`: Full 1920*1080 size RGB & Depth images ("Source_data/Object Pose" is unnecessary data. It will be removed soon.)
@@ -55,9 +53,6 @@ HOGraspNet/assets/urls/
 ```
 
 **Download procedure**
-
-⚠️ [24.07.18] Currently, when downloading large source data, the connection is repeatedly interrupted and reconnected. This is a network issue of our affiliated institution and will be resolved soon.
-
 
 1. Download the dataset 
 	1. with default option: 
@@ -150,7 +145,8 @@ WIP
 <!-- - [ ] An uncompleted task
 - [x] A completed task -->
 - [x] Update data server protocol as HTTP to HTTPS (24/07/24)
-- [ ] HALO model annotation (ETA: 24/07)
+- [ ] Support the windows platform
+- [ ] HALO model annotation (ETA: 24/08)
 - [ ] Full continuous video sequence (ETA: 24/08)
 - [ ] HOGraspNet v2 (ETA: 24/08)
 	- Object pose/contact map quality will be enhanced.
