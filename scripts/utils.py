@@ -87,32 +87,29 @@ def download_urls(urls, output_folder, max_tries=7):
         tries = 0
         while tries < max_tries:
             done = download_url_once(url, file_name, True)
-            if not done:
-                # t = exponential_backoff(tries)
+            if done:
+                break
+            else:
                 t = 1
                 print('*** Sleeping for {:f} s'.format(t))
                 time.sleep(t)
                 tries += 1
-        print('*** Max download tries exceeded')
+        if tries == max_tries:
+            print('*** Download not complete. Max download tries exceeded')
 
 
-def exponential_backoff(n, max_backoff=64.0):
-    t = math.pow(2.0, n)
-    t += (random.randint(0, 1000)) / 1000.0
-    t = min(t, max_backoff)
-    return t
 
 
 def download_url_once(url, filename, progress=True):
     try:
-        r = requests.get(url, stream=True, proxies=None)
+        headers = {'user-agent': 'Wget/1.16 (linux-gnu)'}
+        r = requests.get(url, stream=True, proxies=None, headers=headers)
     except ConnectionError as err:
         print(err)
         return False
     
     total_size = int(r.headers.get('content-length', 0))
-    # print("total_size : ", total_size)
-    block_size = 1024 #1 Kibibyte
+    block_size = 102400 #100 Kibibyte
     if progress:
         t=tqdm(total=total_size, unit='iB', unit_scale=True)
     done = True
