@@ -88,7 +88,8 @@ def download_urls(urls, output_folder, max_tries=7):
         while tries < max_tries:
             done = download_url_once(url, file_name, True)
             if not done:
-                t = exponential_backoff(tries)
+                # t = exponential_backoff(tries)
+                t = 1
                 print('*** Sleeping for {:f} s'.format(t))
                 time.sleep(t)
                 tries += 1
