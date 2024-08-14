@@ -16,7 +16,7 @@ HOGraspNet provides the following data and models:
 
 ## Installation
 
-- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux.
+- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window 11.
 - Clone and install the following main packages.
 ```bash
 git clone git@github.com:UVR-WJCHO/HOGraspNet.git
@@ -54,7 +54,7 @@ HOGraspNet/assets/urls/
 
 **Download procedure**
 
-⚠️ [24.08.09] The connection to Dropbox shared links is often unstable. We are testing alternative methods to ensure a stable download environment.
+⚠️ [24.08.14] The connection to Dropbox shared links might be unstable. We are testing alternative methods to ensure a stable download environment.
 
 1. Download the dataset 
 	1. with default option: 
