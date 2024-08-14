@@ -11,7 +11,7 @@ import cv2
 from tqdm import tqdm
 import pickle
 from config import cfg
-from utils import extractBbox
+from util.utils import extractBbox
 # from pytorch3d.io import load_obj
 
 class HOGDataset():
@@ -302,7 +302,7 @@ class HOGDataset():
     #     self.obj_mesh_name = target_mesh_class + '.obj'
 
     #     obj_mesh_path = os.path.join(self.baseDir, self.objModelDir, target_mesh_class, self.obj_mesh_name)
-    #     obj_scale = CFG_OBJECT_SCALE_FIXED[int(self.obj_id) - 1]
+    #     obj_scale = _OBJECT_SCALE_FIXED[int(self.obj_id) - 1]
     #     obj_verts, obj_faces, _ = load_obj(obj_mesh_path)
     #     obj_verts_template = (obj_verts * float(obj_scale)).to(self.device)
     #     obj_faces_template = torch.unsqueeze(obj_faces.verts_idx, axis=0).to(self.device)

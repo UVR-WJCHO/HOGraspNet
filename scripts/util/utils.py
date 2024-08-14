@@ -8,6 +8,7 @@ import time
 import math
 
 
+
 def extractBbox(hand_2d, image_rows=1080, image_cols=1920, bbox_w=640, bbox_h=480):
     # consider fixed size bbox
     x_min_ = min(hand_2d[:, 0])
@@ -76,12 +77,9 @@ def download_urls(urls, output_folder, max_tries=7):
         file_name = url.split('/')[-1].split('?')[0]
 
         print(f"Downloading file name : {file_name}")
-
+ 
         file_name = output_folder + '/' + file_name
         url = url[:-1] + '1'
-
-        # os.system(f"wget -cO {file_name} \"{url}\"")
-        # os.system(f"curl -L -o {file_name} \"{url}\"")
 
         ## from contactpose
         tries = 0

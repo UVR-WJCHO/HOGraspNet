@@ -5,7 +5,7 @@ import warnings
 
 from tqdm import tqdm
 import urllib.request
-from utils import check_args, download_urls
+from util.utils import check_args, download_urls
 
 
 def main():

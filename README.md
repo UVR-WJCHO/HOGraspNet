@@ -136,7 +136,11 @@ dataloader = HOGDataset(setup, split)
 
 ## Data visualization
 
-WIP
+1. Set MANO code and models in `thirdparty` from the MANO project page(https://mano.is.tue.mpg.de).
+    - You need to comment out the `print 'FINITO'` (line 137) statement in `thirdparty/mano_v1_2/webuser/smpl_handpca_wrapper_HAND_only.py`.
+    - If you set your MANO folder in another path, modify the `mano_path` parameter in `scripts/config.py`
+2. We utilized a differentiable MANO layer for PyTorch from https://github.com/hassony2/manopth. `thirdparty/manopth`
+
 
 ## Manual background augmentation
 

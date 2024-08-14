@@ -1,6 +1,10 @@
+import os
 from enum import Enum, IntEnum
 
 class cfg:
+
+    mano_path = os.path.join(os.environ['HOG_DIR'], 'thirdparty/mano_v1_2/models')
+
     ## default dataset types ##
     split_types = list(range(5))
     subject_types = list(range(100))
@@ -13,40 +17,12 @@ class cfg:
     base_url_set = ["images_augmented", "annotations", "extra", "images"]
 
     _CAMIDSET = ['mas', 'sub1', 'sub2', 'sub3']
-
     _TEST_OBJ_LIST = ['10','02','12','20','04','06','11']
     _TEST_GRASP_LIST = ['23','25','29','16']
 
-    CFG_OBJECT_SCALE_FIXED = [1.,
-    1.,
-    1.,
-    1.,
-    0.8296698468,
-    1.,
-    1.,
-    1.,
-    1.,
-    1.,
-    0.1035083229,
-    1.,
-    0.6706711338,
-    1.,
-        1.,
-        0.43,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.,
-        1.]
+    _OBJECT_SCALE_FIXED = [1.,1.,1.,1.,0.8296698468,1.,1.,1.,1.,1.,
+    0.1035083229,1.,0.6706711338,1.,1.,0.43,1.,1.,1.,1.,
+    1.,1.,1.,1.,1.,1.,1.,1.,1.,1.]
     
 class OBJType(IntEnum):
     cracker_box = 1
