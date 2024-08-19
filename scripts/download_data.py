@@ -11,8 +11,7 @@ from util.utils import check_args, download_urls
 def main():
     ## config ##
     base_url_path = "./assets/urls/"    
-    base_obj_models_url = "https://www.dropbox.com/scl/fi/lpud17kswi3dj6egtihbs/HOGraspNet_obj_models.zip?rlkey=d8hkdwieecp557gx39y0bc6tw&st=jxh42gsc&dl=0"
-
+    base_obj_models_url = "https://www.dropbox.com/scl/fi/p5co94mu1xbedk05v1f0o/HOGraspNet_obj_models.zip?rlkey=5oxydhkep6h1c8dx976lxagxc&st=it75s54b&dl=0"
     
     ## check if the url is set ##
     if os.path.isdir("assets/urls"):

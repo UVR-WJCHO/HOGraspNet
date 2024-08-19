@@ -12,9 +12,17 @@ def unzip(zip_file, output_path):
 
 
 def main():
-     ## config ##
+    ## config ##
     base_path = "./data"    
-    
+
+    ## unzip object models if exists
+    fname = os.path.join(base_path, "obj_scanned_models", "HOGraspNet_obj_models.zip")
+    if os.path.isfile(fname):
+        print("HOGraspNet_obj_models.zip exists. Unzip.")
+        unzip(fname, os.path.join(base_path, "obj_scanned_models"))
+        os.remove(fname) 
+
+    ## unzip dataset
     fnames = glob(os.path.join(base_path, "zipped", "**/*"), recursive=True)
 
     img_zips = []
@@ -37,11 +45,14 @@ def main():
     for fname_type, zip_list, fname_out in zip(fname_types, zips, fname_outs):
         output_path = os.path.join(base_path, fname_out)
         # os.makedirs(output_path, exist_ok=True)
-
+ 
         pbar = tqdm(zip_list)
         for zip_file in pbar:
             pbar.set_description(f"Unzipping {zip_file} to {output_path}")
             unzip(zip_file, output_path)
+            os.remove(zip_file)
+
+
 
 
 if __name__ == "__main__":
