@@ -150,7 +150,7 @@ conda create -n HOG_vis python=3.10
 conda activate HOG_vis
 pip install -r requirements_vis.txt 
 ```
-- Set cuda 11.8
+- Set cuda 11.8 and torch, pytorch3d
 
 ```bash
 pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
