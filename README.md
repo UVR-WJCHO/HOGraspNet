@@ -157,6 +157,8 @@ pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https
 pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py310_cu118_pyt200/download.html
 ```
 
+- Run the code; this will produce rendered results of 10 random samples from downloaded data.
+
 
 ```bash
 python scripts/visualization.py
