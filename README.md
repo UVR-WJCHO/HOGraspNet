@@ -138,18 +138,18 @@ dataloader = HOGDataset(setup, split)
 
 - This code is tested with Python 3.10, cuda 11.8, PyTorch 2.0.0 on Linux and Window 11.
 
-1. Set MANO code and models in `thirdparty` from the MANO project page(https://mano.is.tue.mpg.de).
+- Set MANO code and models in `thirdparty` from the MANO project page(https://mano.is.tue.mpg.de).
     - You need to comment out the `print 'FINITO'` (line 137) statement in `thirdparty/mano_v1_2/webuser/smpl_handpca_wrapper_HAND_only.py`.
     - If you set your MANO folder in another path, modify the `mano_path` parameter in `scripts/config.py`
-2. We utilized a differentiable MANO layer for PyTorch from https://github.com/hassony2/manopth. `thirdparty/manopth`
+- We utilized a differentiable MANO layer for PyTorch from https://github.com/hassony2/manopth. `thirdparty/manopth`
 
 
-
-```bash
+<!-- ```bash
 conda create -n HOG_vis python=3.10
 conda activate HOG_vis
 pip install -r requirements_vis.txt 
-```
+``` -->
+
 - Set cuda 11.8 and torch, pytorch3d
 
 ```bash
@@ -164,7 +164,7 @@ pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.co
 python scripts/visualization.py
 ```
 
-- Randomly sampled rendered images will be saved in `[HOG_DIR]/vis/`.
+- Rendered images will be saved in `[HOG_DIR]/vis/`.
 
 ## Manual background augmentation
 
