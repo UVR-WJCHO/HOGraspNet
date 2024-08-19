@@ -1,4 +1,8 @@
 import os
+
+#### remove ####
+os.environ["HOG_DIR"] = "/scratch/NIA/HOGraspNet"
+
 import sys
 sys.path.append(os.environ['HOG_DIR'])
 sys.path.append(os.path.join(os.environ['HOG_DIR'], "thirdparty/manopth"))
@@ -7,10 +11,11 @@ from HOG_dataloader import HOGDataset
 import torch
 from torch.utils.data import DataLoader
 from config import cfg
+from scripts.util.renderer import Renderer
 from scripts.util.utils_vis import *
 import numpy as np
 from thirdparty.manopth.manopth.manolayer import ManoLayer
-
+import cv2
 
 
 setup = 's0'
@@ -43,8 +48,8 @@ for idx, sample in enumerate(HOG_loader):
     if idx > vis_num:
         break
 
-    K = sample['intrinsics']
-    M = sample['extrinsics']
+    K = torch.squeeze(sample['intrinsics'])
+    M = torch.squeeze(sample['extrinsics'])
 
     rgb = sample['rgb_data']
     depth = sample['depth_data']
@@ -52,10 +57,13 @@ for idx, sample in enumerate(HOG_loader):
     anno = sample['anno_data']
 
     # update renderer if sequence has changed
-    cam = sample['camera']
-    seq_name = sample['rgb_path'].split('/')[-5]
-    trial_name = sample['rgb_path'].split('/')[-4]
-    img_name = sample['rgb_path'].split('/')[-1]
+    cam = sample['camera'][0]
+
+    rgb_path = sample['rgb_path'][0]
+
+    seq_name = rgb_path.split('/')[-5]
+    trial_name = rgb_path.split('/')[-4]
+    img_name = rgb_path.split('/')[-1]
     if seq_name != prev_seq_name:
         renderer_set[cam].update_intrinsic(K)
     
@@ -64,9 +72,9 @@ for idx, sample in enumerate(HOG_loader):
     hand_mano_pose = anno['Mesh'][0]['mano_pose']
     hand_mano_shape = anno['Mesh'][0]['mano_betas']
 
-    hand_mano_rot = torch.FloatTensor(np.asarray(hand_mano_rot))
-    hand_mano_pose = torch.FloatTensor(np.asarray(hand_mano_pose))
-    hand_mano_shape = torch.FloatTensor(np.asarray(hand_mano_shape)).to(device)
+    hand_mano_rot = torch.FloatTensor(hand_mano_rot).to(device)
+    hand_mano_pose = torch.FloatTensor(hand_mano_pose).to(device)
+    hand_mano_shape = torch.FloatTensor(hand_mano_shape).to(device)
 
     mano_param = torch.cat([hand_mano_rot, hand_mano_pose], dim=1).to(device)
     mano_verts, mano_joints = mano_layer(mano_param, hand_mano_shape)
@@ -75,15 +83,20 @@ for idx, sample in enumerate(HOG_loader):
     hand_xyz_root = anno['hand']['mano_xyz_root']
 
     ## 3D hand verts in world coordinate
-    mano_verts = (mano_verts / hand_scale) + torch.Tensor(hand_xyz_root).to(device)
+    mano_verts = (mano_verts / hand_scale.to(device)) + torch.Tensor(hand_xyz_root).to(device)
 
-
-    verts_cam = torch.unsqueeze(mano3DToCam3D(mano_verts, Ms), 0)
+    verts_cam = torch.unsqueeze(mano3DToCam3D(mano_verts, M), 0)
     pred_rendered_hand_only = renderer_set[cam].render(verts_cam, hand_faces_template, flag_rgb=True)
 
     # verts_cam_obj = torch.unsqueeze(mano3DToCam3D(obj_verts_world, Ms), 0)
     # pred_rendered = renderer_set[camIdx].render_meshes([verts_cam, verts_cam_obj], [hand_faces_template, obj_faces_template], flag_rgb=True)
 
     rgb_mesh = np.squeeze((pred_rendered_hand_only['rgb'][0].cpu().detach().numpy() * 255.0)).astype(np.uint8)
+    
+    bbox_np = np.squeeze(np.asarray(bbox, dtype=int))
+    rgb_np = np.squeeze(np.asarray(rgb))
 
-    cv2.imwrite(os.path.join(save_path, "../vis", f"mesh_{seq_name}_{trial}_{img_name}.png"), rgb_mesh)
+    rgb_mesh = rgb_mesh[bbox_np[1]:bbox_np[1]+bbox_np[3], bbox_np[0]:bbox_np[0]+bbox_np[2], :]
+
+    rgb_mesh = cv2.addWeighted(rgb_mesh, 0.4, rgb_np, 0.6, 0)
+    cv2.imwrite(os.path.join(save_path, f"mesh_{seq_name}_{trial_name}_{img_name}"), rgb_mesh)

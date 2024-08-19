@@ -105,61 +105,6 @@ class Renderer(nn.Module):
         raster_settings=self.raster_settings
         )
 
-    def render_simple(self, meshes, flag_rgb=False):
-        '''
-        verts : [bs, V, 3]
-        faces : [bs, F, 3]
-
-        -> [bs, H, W, 3], [bs, H, W], [bs, H, W]
-        '''
-
-        if flag_rgb:
-            rgb = self.renderer_rgb(meshes)[..., :3]
-        else:
-            rgb = None
-        t1 = time.time()
-        depth = self.rasterizer_depth(meshes).zbuf[..., 0]
-
-        print("raster d : ", time.time() - t1)
-
-        # depth map process
-        depth[depth == -1] = 0.
-        depth = depth * 10.0    # change to mm scale (same as gt)
-
-        seg = torch.empty_like(depth).copy_(depth)
-
-        # loss_depth = torch.sum(((depth_rendered - self.depth_ref / self.scale) ** 2).view(self.batch_size, -1),
-        #                        -1) * 0.00012498664727900177  # depth scale used in HOnnotate
-
-        return {"rgb":rgb, "depth":depth, "seg":seg}
-
-
-    def compute_depth_loss(self, pred_depth):
-        depth_gap = (pred_depth - self.depth_ref) ** 2
-        depth_gap[pred_depth == 10.0] = 0
-        # depth_gap[self.depth_ref == 10.0] = 0          ###### check
-        # depth_gap[self.depth_ref == 0] = 0
-
-        # temp = depth_gap.clone().cpu().detach().numpy()
-
-        depth_loss = torch.sum(depth_gap)
-        return depth_loss, depth_gap
-
-    def compute_seg_loss(self, pred_seg):
-        seg_a = self.seg_ref - pred_seg
-        seg_a[seg_a < 0] = 0.0
-        seg_b = pred_seg - self.seg_ref
-        seg_b[seg_b < 0] = 0.0
-
-        seg_gap = seg_a + seg_b
-        # seg_gap[self.seg_ref == pred_seg] = 0
-        # seg_gap[self.seg_ref == 10] = 0
-        # seg_gap[pred_seg == 10] = 0
-
-        seg_loss = torch.sum(seg_gap)
-        return seg_loss, seg_gap
-
-
     def register_seg(self, seg_ref):
         self.register_buffer('seg_ref', seg_ref)
 

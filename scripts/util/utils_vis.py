@@ -4,6 +4,8 @@ import torch
 
 
 def mano3DToCam3D(xyz3D, ext):
+    # ext = ext.double()
+    xyz3D = xyz3D.float()
     device = xyz3D.device
     xyz3D = torch.squeeze(xyz3D)
     ones = torch.ones((xyz3D.shape[0], 1), device=device)

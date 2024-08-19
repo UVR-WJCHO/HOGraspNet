@@ -141,6 +141,19 @@ dataloader = HOGDataset(setup, split)
     - If you set your MANO folder in another path, modify the `mano_path` parameter in `scripts/config.py`
 2. We utilized a differentiable MANO layer for PyTorch from https://github.com/hassony2/manopth. `thirdparty/manopth`
 
+Python 3.10.12, cuda 11.8
+
+```bash
+conda create -n HOG_vis python=3.10
+conda activate HOG_vis
+pip install -r requirements.txt 
+```
+
+
+```bash
+pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
+pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py310_cu118_pyt200/download.html
+```
 
 ## Manual background augmentation
 
