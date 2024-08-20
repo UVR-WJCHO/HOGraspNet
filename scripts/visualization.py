@@ -1,8 +1,4 @@
 import os
-
-#### remove ####
-os.environ["HOG_DIR"] = "/scratch/NIA/HOGraspNet"
-
 import sys
 sys.path.append(os.environ['HOG_DIR'])
 sys.path.append(os.path.join(os.environ['HOG_DIR'], "thirdparty/manopth"))

@@ -167,15 +167,28 @@ python scripts/visualization.py
 - Rendered images will be saved in `[HOG_DIR]/vis/`.
 
 ## Manual background augmentation
+ 
+- As HOGraspNet has captured on a monotonic environment, background augmentations are available with random images. We utilized samples from [HanCo](https://github.com/lmb-freiburg/contra-hand) dataset as background sources.
 
-WIP
+- Here, we provide example codes for manual background augmentation on source data. This will require `source_augmented` and `extra_data` of the dataset. (`[TYPE] 2 & 4` in download options)
+
+- [Download](https://www.dropbox.com/scl/fi/ql79p3d3tu5npdl9g8jpp/bg_samples.zip?rlkey=sb1y5w443ale0l2udn0nrq64j&st=scr7jr9q&dl=1) or manually prepare background sample images in `[HOG_DIR]/data/bg_samples`.
+
+- Run the code; this will produce augmented rgb images in `[HOG_DIR]/data/manual_augmented`.
+
+```bash
+python scripts/manual_augmentation.py
+```
+
+
+
 
 ## TODO ##
 
 <!-- - [ ] An uncompleted task
 - [x] A completed task -->
 - [x] Update data server protocol as HTTP to HTTPS (24/07/24)
-- [ ] Support the windows platform
+- [x] Support the windows platform
 - [ ] HALO model annotation (ETA: 24/08)
 - [ ] Full continuous video sequence (ETA: 24/08)
 - [ ] HOGraspNet v2 (ETA: 24/08)
