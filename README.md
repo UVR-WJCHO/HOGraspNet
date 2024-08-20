@@ -18,11 +18,11 @@ HOGraspNet provides the following data and models:
 
 - This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window 11.
 - Clone and install the following main packages.
-```bash
-git clone git@github.com:UVR-WJCHO/HOGraspNet.git
-cd HOGraspNet
-pip install -r requirements.txt
-```
+    ```bash
+    git clone git@github.com:UVR-WJCHO/HOGraspNet.git
+    cd HOGraspNet
+    pip install -r requirements.txt
+    ```
 - (TBD, for visualization) Install pytorch3d following [here](https://github.com/facebookresearch/pytorch3d) (our code uses version 0.7.3)
 
 
@@ -32,13 +32,12 @@ pip install -r requirements.txt
 1. Please fill this [form](https://forms.gle/UqH15zN2PiBGQDUs7) to download the dataset after reading the [terms and conditions](#terms).
 
 2. Copy the data URL from the form, download it and unzip.
-
-```bash
-cd assets
-wget -O urls.zip "[URL]"
-unzip urls.zip
-cd ..
-```
+    ```bash
+    cd assets
+    wget -O urls.zip "[URL]"
+    unzip urls.zip
+    cd ..
+    ```
 
 
 After running the above, you should expect:
@@ -116,19 +115,18 @@ Please check it if you need data on a specific type of subject.
 ## Dataloader
 
 * Set the environment variable for dataset path
-```bash
-export HOG_DIR=/path/to/HOGGraspNet
-```
+    ```bash
+    export HOG_DIR=/path/to/HOGGraspNet
+    ```
 
 * Utilize the dataloader as below
+    ```bash
+    from scripts.HOG_dataloader import HOGDataset
 
-```bash
-from scripts.HOG_dataloader import HOGDataset
-
-setup = 's2'
-split = 'test'
-dataloader = HOGDataset(setup, split)
-```
+    setup = 's2'
+    split = 'test'
+    dataloader = HOGDataset(setup, split)
+    ```
 
 * See [`data_structure.md`](./docs/data_structure.md) for detailed structures of the sample from dataloader (WIP)
 
@@ -151,18 +149,15 @@ pip install -r requirements_vis.txt
 ``` -->
 
 - Set required CUDA, torch, pytorch3d environments.
-
-```bash
-pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
-pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py310_cu118_pyt200/download.html
-```
+    ```bash
+    pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
+    pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py310_cu118_pyt200/download.html
+    ```
 
 - Run the code; this will produce rendered results of 10 random samples from downloaded data.
-
-
-```bash
-python scripts/visualization.py
-```
+    ```bash
+    python scripts/visualization.py
+    ```
 
 - Rendered images will be saved in `[HOG_DIR]/vis/`.
 
@@ -175,10 +170,9 @@ python scripts/visualization.py
 - [Download](https://www.dropbox.com/scl/fi/ql79p3d3tu5npdl9g8jpp/bg_samples.zip?rlkey=sb1y5w443ale0l2udn0nrq64j&st=scr7jr9q&dl=1) or manually prepare background sample images in `[HOG_DIR]/data/bg_samples`.
 
 - Run the code; this will produce augmented rgb images in `[HOG_DIR]/data/manual_augmented`.
-
-```bash
-python scripts/manual_augmentation.py
-```
+    ```bash
+    python scripts/manual_augmentation.py
+    ```
 
 
 
