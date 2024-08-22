@@ -18,7 +18,7 @@ class HOGDataset():
     def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True):
         """Constructor.
         Args:
-        setup: Setup name. 's0', 's1', 's2', 's3', or 's4'
+        setup: Setup name. 'travel_all', 's0', 's1', 's2', 's3', or 's4'
         split: Split name. 'train', 'val', or 'test'
         use_aug: Use crop&augmented rgb data if exists.
         load_pkl: Use saved pkl if exists.
