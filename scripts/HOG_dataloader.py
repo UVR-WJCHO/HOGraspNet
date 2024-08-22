@@ -15,7 +15,7 @@ from util.utils import extractBbox
 # from pytorch3d.io import load_obj
 
 class HOGDataset():
-    def __init__(self, setup, split, use_aug=False, load_pkl=True):
+    def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True):
         """Constructor.
         Args:
         setup: Setup name. 's0', 's1', 's2', 's3', or 's4'
@@ -31,7 +31,7 @@ class HOGDataset():
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
         assert 'HOG_DIR' in os.environ, "environment variable 'HOG_DIR' is not set"
-        self._base_dir = os.path.join(os.environ['HOG_DIR'], 'data')
+        self._base_dir = db_path
 
         self._base_anno = os.path.join(self._base_dir, 'labeling_data')
         self._base_source = os.path.join(self._base_dir, 'source_data')

@@ -50,7 +50,8 @@ if __name__ == '__main__':
     save_path = os.path.join(os.environ['HOG_DIR'], "vis")
     os.makedirs(save_path, exist_ok=True)
 
-    HOG = HOGDataset(setup, split)
+    db_path = os.path.join(os.environ['HOG_DIR'], "data")
+    HOG = HOGDataset(setup, split, db_path=db_path)
     HOG_loader = DataLoader(HOG, batch_size=1, shuffle=True)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -58,7 +59,7 @@ if __name__ == '__main__':
                                 center_idx=0, ncomps=45, root_rot_mode="axisang", joint_rot_mode="axisang").to(device)
     hand_faces_template = mano_layer.th_faces.repeat(1, 1, 1)
     
-    obj_model_path = os.path.join(os.environ['HOG_DIR'], "data", "obj_scanned_models")
+    obj_model_path = os.path.join(db_path, "obj_scanned_models")
     obj_templates = load_object_meshes(model_path=obj_model_path, device=device)
 
     default_M = np.eye(4)[:3]
