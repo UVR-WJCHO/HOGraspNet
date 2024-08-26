@@ -15,7 +15,7 @@ from util.utils import extractBbox
 # from pytorch3d.io import load_obj
 
 class HOGDataset():
-    def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True):
+    def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True, pkl_path=None):
         """Constructor.
         Args:
         setup: Setup name. 'travel_all', 's0', 's1', 's2', 's3', or 's4'
@@ -46,7 +46,10 @@ class HOGDataset():
         self.camIDset = cfg._CAMIDSET
 
         # create pkl once, load if exist.
-        self._data_pkl_pth = f'cfg/{setup}_{split}.pkl'
+        if pkl_path == None:
+            self._data_pkl_pth = f'cfg/{setup}_{split}.pkl'
+        else:
+            self._data_pkl_pth = pkl_path
         
         ## CHECK DATA 
         assert os.path.isdir(self._base_anno), "labeling data is not set, we require at least annotation & source(or source_augmented) to run dataloader"

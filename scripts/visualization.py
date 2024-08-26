@@ -98,6 +98,9 @@ if __name__ == '__main__':
         
         ## set hand parameters
         hand_joints = anno['annotations'][0]['data']
+        hand_joints_2d = anno['hand']['projected_2D_pose_per_cam']
+        hand_joints_3d = anno['hand']['3D_pose_per_cam']
+
         hand_mano_rot = anno['Mesh'][0]['mano_trans']
         hand_mano_pose = anno['Mesh'][0]['mano_pose']
         hand_mano_shape = anno['Mesh'][0]['mano_betas']
