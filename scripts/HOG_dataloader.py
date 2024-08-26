@@ -15,7 +15,7 @@ from util.utils import extractBbox
 # from pytorch3d.io import load_obj
 
 class HOGDataset():
-    def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True, pkl_path=None):
+    def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True, path_pkl=None):
         """Constructor.
         Args:
         setup: Setup name. 'travel_all', 's0', 's1', 's2', 's3', or 's4'
@@ -30,8 +30,11 @@ class HOGDataset():
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-        assert 'HOG_DIR' in os.environ, "environment variable 'HOG_DIR' is not set"
-        self._base_dir = db_path
+        if 'HOG_DIR' in os.environ:
+            self._base_dir = os.environ['HOG_DIR']
+            print("load db from environment variable 'HOG_DIR'")
+        else:
+            self._base_dir = db_path
 
         self._base_anno = os.path.join(self._base_dir, 'labeling_data')
         self._base_source = os.path.join(self._base_dir, 'source_data')
@@ -46,10 +49,10 @@ class HOGDataset():
         self.camIDset = cfg._CAMIDSET
 
         # create pkl once, load if exist.
-        if pkl_path == None:
+        if path_pkl == None:
             self._data_pkl_pth = f'cfg/{setup}_{split}.pkl'
         else:
-            self._data_pkl_pth = pkl_path
+            self._data_pkl_pth = path_pkl
         
         ## CHECK DATA 
         assert os.path.isdir(self._base_anno), "labeling data is not set, we require at least annotation & source(or source_augmented) to run dataloader"
