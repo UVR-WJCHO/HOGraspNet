@@ -25,7 +25,10 @@ HOGraspNet provides the following data and models:
     ```
 - (TBD, for visualization) Install pytorch3d following [here](https://github.com/facebookresearch/pytorch3d) (our code uses version 0.7.3)
 
-
+- Set the environment variable for dataset path
+    ```bash
+    export HOG_DIR=/path/to/HOGGraspNet
+    ```
 
 ## Download HOGraspNet
 
