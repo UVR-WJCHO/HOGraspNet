@@ -16,10 +16,10 @@ HOGraspNet provides the following data and models:
 
 ## Installation
 
-- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Window 11.
+- This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Windows 11.
 - Clone and install the following main packages.
     ```bash
-    git clone git@github.com:UVR-WJCHO/HOGraspNet.git
+    git clone https://github.com/UVR-WJCHO/HOGraspNet.git
     cd HOGraspNet
     pip install -r requirements.txt
     ```
@@ -27,7 +27,8 @@ HOGraspNet provides the following data and models:
 
 - Set the environment variable for dataset path
     ```bash
-    export HOG_DIR=/path/to/HOGGraspNet
+    (linux) export HOG_DIR=/path/to/HOGGraspNet
+    (windows) set HOG_DIR=/path/to/HOGGraspNet
     ```
 
 ## Download HOGraspNet

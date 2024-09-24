@@ -8,29 +8,6 @@ import time
 import math
 
 
-
-def extractBbox(hand_2d, image_rows=1080, image_cols=1920, bbox_w=640, bbox_h=480):
-    # consider fixed size bbox
-    x_min_ = min(hand_2d[:, 0])
-    x_max_ = max(hand_2d[:, 0])
-    y_min_ = min(hand_2d[:, 1])
-    y_max_ = max(hand_2d[:, 1])
-
-    x_avg = (x_min_ + x_max_) / 2
-    y_avg = (y_min_ + y_max_) / 2
-
-    x_min = max(0, x_avg - (bbox_w / 2))
-    y_min = max(0, y_avg - (bbox_h / 2))
-
-    if (x_min + bbox_w) > image_cols:
-        x_min = image_cols - bbox_w
-    if (y_min + bbox_h) > image_rows:
-        y_min = image_rows - bbox_h
-
-    bbox = [x_min, y_min, bbox_w, bbox_h]
-    return bbox, [x_min_, x_max_, y_min_, y_max_]
-
-
 def check_args(arg_type, arg_subject):
     try:  
         if arg_type == 0:            
@@ -102,7 +79,7 @@ def download_url_once(url, filename, progress=True):
     try:
         # headers = {'user-agent': 'Wget/1.16 (linux-gnu)'}
         headers = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
-
+        time.sleep(0.01)
         r = requests.get(url, stream=True, proxies=None, headers=headers)
     except ConnectionError as err:
         print(err)
@@ -143,3 +120,27 @@ def download_url_once(url, filename, progress=True):
         return False
     else:
         return True
+
+
+
+
+def extractBbox(hand_2d, image_rows=1080, image_cols=1920, bbox_w=640, bbox_h=480):
+    # consider fixed size bbox
+    x_min_ = min(hand_2d[:, 0])
+    x_max_ = max(hand_2d[:, 0])
+    y_min_ = min(hand_2d[:, 1])
+    y_max_ = max(hand_2d[:, 1])
+
+    x_avg = (x_min_ + x_max_) / 2
+    y_avg = (y_min_ + y_max_) / 2
+
+    x_min = max(0, x_avg - (bbox_w / 2))
+    y_min = max(0, y_avg - (bbox_h / 2))
+
+    if (x_min + bbox_w) > image_cols:
+        x_min = image_cols - bbox_w
+    if (y_min + bbox_h) > image_rows:
+        y_min = image_rows - bbox_h
+
+    bbox = [x_min, y_min, bbox_w, bbox_h]
+    return bbox, [x_min_, x_max_, y_min_, y_max_]
