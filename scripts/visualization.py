@@ -118,6 +118,11 @@ if __name__ == '__main__':
         mano_verts = (mano_verts / hand_scale.to(device)) + torch.Tensor(hand_xyz_root).to(device)
         verts_cam = torch.unsqueeze(mano3DToCam3D(mano_verts, M), 0)
 
+        mano_joints = (mano_joints / hand_scale.to(device)) + torch.Tensor(hand_xyz_root).to(device)
+        joints_cam = torch.unsqueeze(mano3DToCam3D(mano_joints, M), 0)
+        gt_kpts2d = projectPoints(joints_cam, K)
+        gt_kpts2d = np.squeeze(gt_kpts2d.cpu().detach().numpy())
+
         ## set object parameters
         obj_mat = torch.FloatTensor(anno['Mesh'][0]['object_mat']).to(device)
 
@@ -126,15 +131,19 @@ if __name__ == '__main__':
         obj_verts_world = obj_verts_world.view(1, -1, 3)
         verts_cam_obj = torch.unsqueeze(mano3DToCam3D(obj_verts_world, M), 0)
 
-        ## render
+        ## render mesh
         # pred_rendered_hand_only = renderer_set[cam].render(verts_cam, hand_faces_template, flag_rgb=True)
         pred_rendered = renderer_set[cam].render_meshes([verts_cam, verts_cam_obj], [hand_faces_template, obj_faces_template], flag_rgb=True)
-
         rgb_mesh = np.squeeze((pred_rendered['rgb'][0].cpu().detach().numpy() * 255.0)).astype(np.uint8)
+
+        ## draw skeleton
+        rgb_mesh = paint_kpts(None, rgb_mesh, gt_kpts2d)
         
+        ## crop the image
         bbox_np = np.squeeze(np.asarray(bbox, dtype=int))
         rgb_mesh = rgb_mesh[bbox_np[1]:bbox_np[1]+bbox_np[3], bbox_np[0]:bbox_np[0]+bbox_np[2], :]
 
+        ## blend with original image
         rgb_np = np.squeeze(np.asarray(rgb))
         rgb_mesh = cv2.addWeighted(rgb_mesh, 0.4, rgb_np, 0.6, 0)
         cv2.imwrite(os.path.join(save_path, f"mesh_{seq_name}_{trial_name}_{img_name}"), rgb_mesh)

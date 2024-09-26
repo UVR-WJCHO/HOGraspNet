@@ -27,7 +27,7 @@ HOGraspNet provides the following data and models:
 
 - Set the environment variable for dataset path
     ```bash
-    (linux) export HOG_DIR=/path/to/HOGGraspNet
+    (linux) export HOG_DIR=/path/to/HOGGraspNet 
     (windows) set HOG_DIR=/path/to/HOGGraspNet
     ```
 
@@ -129,7 +129,8 @@ Please check it if you need data on a specific type of subject.
 
     setup = 's2'
     split = 'test'
-    dataloader = HOGDataset(setup, split)
+    db_path = os.path.join(os.environ['HOG_DIR'], "data")
+    dataloader = HOGDataset(setup, split, db_path)
     ```
 
 * See [`data_structure.md`](./docs/data_structure.md) for detailed structures of the sample from dataloader (WIP)

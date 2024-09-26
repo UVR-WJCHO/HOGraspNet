@@ -15,11 +15,12 @@ from util.utils import extractBbox
 # from pytorch3d.io import load_obj
 
 class HOGDataset():
-    def __init__(self, setup, split, db_path=None, use_aug=False, load_pkl=True, path_pkl=None):
+    def __init__(self, setup, split, db_path, use_aug=False, load_pkl=True, path_pkl=None):
         """Constructor.
         Args:
         setup: Setup name. 'travel_all', 's0', 's1', 's2', 's3', or 's4'
         split: Split name. 'train', 'val', or 'test'
+        db_path: path to dataset folder.
         use_aug: Use crop&augmented rgb data if exists.
         load_pkl: Use saved pkl if exists.
         """
@@ -30,12 +31,7 @@ class HOGDataset():
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-        if 'HOG_DIR' in os.environ:
-            self._base_dir = os.environ['HOG_DIR']
-            print("load db from environment variable 'HOG_DIR'")
-        else:
-            self._base_dir = db_path
-
+        self._base_dir = db_path
         self._base_anno = os.path.join(self._base_dir, 'labeling_data')
         self._base_source = os.path.join(self._base_dir, 'source_data')
         self._base_source_aug = os.path.join(self._base_dir, 'source_augmented')
@@ -418,7 +414,8 @@ def main():
     split = 'test'
     print("loading ... ", setup + '_' + split)
 
-    HOG_db = HOGDataset(setup, split)
+    db_path = os.path.join(os.environ['HOG_DIR'], "data")
+    HOG = HOGDataset(setup, split, db_path=db_path)
 
     print("db len: ", len(HOG_db))
     data = HOG_db[0]
