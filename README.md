@@ -188,9 +188,10 @@ pip install -r requirements_vis.txt
 - [x] A completed task -->
 - [x] Update data server protocol as HTTP to HTTPS (24/07/24)
 - [x] Support the windows platform
-- [ ] HALO model annotation (ETA: 24/08)
-- [ ] Full continuous video sequence (ETA: 24/08)
-- [ ] HOGraspNet v2 (ETA: 24/08)
+- [x] Update docs
+- [ ] HALO model annotation (ETA: 24/10)
+- [ ] Full continuous video sequence (ETA: 24/10)
+- [ ] HOGraspNet v2 (ETA: 24/10)
 	- Object pose/contact map quality will be enhanced.
 	- Images and annotations for articulated objects will be added.
 
