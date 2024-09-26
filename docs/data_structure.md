@@ -1,5 +1,5 @@
 
-### Data folder structure
+## Data folder structure
 ```bash
 HOGraspNet_DIR/ # ROOT
 
@@ -45,7 +45,7 @@ HOGraspNet_DIR/data/ # data dir
         ...         
 ```
 
-### Hand joint order 
+## Hand joint order 
 We use the hand joints order identical to that of OpenPose.   
 `[Wrist, TMCP,  TPIP, TDIP, TTIP, IMCP, IPIP, IDIP, ITIP, MMCP,  MPIP, MDIP, MTIP, RMCP, RPIP, RDIP, RTIP, PMCP, PPIP, PDIP, PTIP]`
 where ’T’, ’I’, ’M’, ’R’, ’P’ denote ’Thumb’, ’Index’, ’Middle’, ’Ring’, ’Pinky’ fingers.
@@ -53,7 +53,7 @@ where ’T’, ’I’, ’M’, ’R’, ’P’ denote ’Thumb’, ’Index�
 <img src="joint_order.png" alt="drawing" width="300"/>
 
 
-### Dataloader sample structure
+## Dataloader sample structure
 * Each sample from dataloader contains following data packed in a dictionary:
     * `rgb_path`: path to rgb image file (.jpg)
     * `depth_path`: path to depth image file (.png)
