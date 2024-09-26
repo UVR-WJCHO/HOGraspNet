@@ -69,11 +69,6 @@ where ’T’, ’I’, ’M’, ’R’, ’P’ denote ’Thumb’, ’Index�
     * `extrinsics`: camera extrinsic parameter (tensor)
     
     * `anno_data`: dictionary of annotation data
-        ```bash
-        - info
-            - name
-            - description
-
-
-        ```
-
+        * `info` : 
+            * `name` : 
+            * `description` : 
