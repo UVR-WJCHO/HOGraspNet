@@ -415,10 +415,11 @@ def main():
     print("loading ... ", setup + '_' + split)
 
     db_path = os.path.join(os.environ['HOG_DIR'], "data")
-    HOG = HOGDataset(setup, split, db_path=db_path)
+    HOG = HOGDataset(setup, split, db_path)
 
-    print("db len: ", len(HOG_db))
-    data = HOG_db[0]
+    print("db len: ", len(HOG))
+    data = HOG[0]
+    print(data)
 
         
 if __name__ == '__main__':
