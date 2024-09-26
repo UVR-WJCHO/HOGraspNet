@@ -68,7 +68,51 @@ where ’T’, ’I’, ’M’, ’R’, ’P’ denote ’Thumb’, ’Index�
     * `intrinsics`: camera intrinsic parameter (tensor)
     * `extrinsics`: camera extrinsic parameter (tensor)
     
-    * `anno_data`: dictionary of annotation data
-        * `info` : 
-            * `name` : 
-            * `description` : 
+    * `anno_data`: dictionary of annotation data. Here, we report only valid variables.
+        * `actor`
+            * `id`: (str) subject index `1~99`
+            * `sex`: (str) `M or F`
+            * `age`: (str) age range of the subject
+            * `height`: (float) height of subject (cm)
+            * `handsize`: (float) hand size of subject (cm, wrist to MTIP)
+
+        * `images`
+            * `width`: (int) corresponding image width
+            * `height`: (int) corresponding image height
+            * `file_name`: (list) list of corresponding rgb/depth image path 
+            * `frame_num`: (int) corresponding image frame number
+
+        * `object`
+            * `id`: (str) object index `1~30`
+            * `name`: (str) object name
+
+        * `calibration`
+            * `error`: (float) camera calibration error (px)
+            * `extrinsic`: (list) extrinsic parameter as list 
+            * `intrinsic`: (list) intrinsic parameter as list
+
+        * `annotations[0]`
+            * `class_id`: (int) grasp class index `1 ... 33`
+            * `class_name`: (str) grasp class name `ex. Tripod`
+            * `data[0]`: (list) list of 21 hand joints 3D pose
+
+        * `Mesh[0]`
+            * `class_id`: (int) grasp class index `1 ... 33`
+            * `class_name`: (str) grasp class name `ex. Tripod`
+            * `object_name`: (str) object name
+            * `object_file`: (str) 3D object model file name
+            * `object_mat`: (list) 6D object pose matrix (4*4)
+            * `mano_side`: (str) mano hand side
+            * `mano_trans`: (list) mano trans parameter (1*3)
+            * `mano_pose`: (list) mano pose parameter (1*45)
+            * `mano_betas`: (list) mano trans parameter (1*10)
+
+        * `hand`
+            * `mano_scale`: (float) mano scale parameter
+            * `mano_xyz_root`: (list) mano hand root xyz value
+            * `3D_pose_per_cam`: (list) 3D hand joints in world space (21*3) 
+            * `projected_2D_pose_per_cam`: (list) projected 2D hand joints in image space (21*3) 
+
+        * `contact`: (list) list of contact map value (778*1)
+
+* p.s. world coordinate origin is identical to the `mas` camera coordinate origin
