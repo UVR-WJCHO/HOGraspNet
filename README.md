@@ -14,6 +14,12 @@ HOGraspNet provides the following data and models:
 
 <!-- See [`data_structure.md`](./docs/data_structure.md) for an explanation of the data you will download. -->
 
+## Dataset Status Update ##
+
+Due to a hardware failure on our storage server, the **unprocessed raw data** is unfortunately no longer accessible. 
+
+Please note that only the **processed data** is currently available. Consequently, the previously planned updates regarding *HOGraspNet v2* have been indefinitely suspended. We sincerely apologize for any inconvenience this may cause to your research.
+
 ## Installation
 
 - This code is tested with PyTorch 2.0.0, 2.3.1 and Python 3.10 on Linux and Windows 11.
@@ -189,10 +195,7 @@ pip install -r requirements_vis.txt
 - [x] Update data server protocol as HTTP to HTTPS (24/07/24)
 - [x] Support the windows platform
 - [x] Update docs
-- [ ] HALO model annotation
-- [ ] HOGraspNet v2
-	- Object pose/contact map quality will be enhanced.
-	- Images and annotations for articulated objects will be added.
+
 
 
 ## Terms and conditions
